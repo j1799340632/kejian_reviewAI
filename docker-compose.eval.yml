@@ -1,0 +1,28 @@
+# Local evaluation using Milvus' embedded-etcd/local-storage deployment.
+# Reference: milvus-io/milvus scripts/standalone_embed.sh, tag v2.6.16.
+# The app's distributed-component Compose configuration remains available.
+services:
+  milvus-eval:
+    image: milvusdb/milvus:v2.6.16
+    command: ["milvus", "run", "standalone"]
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ETCD_USE_EMBED: "true"
+      ETCD_DATA_DIR: /var/lib/milvus/etcd
+      ETCD_CONFIG_PATH: /milvus/configs/embedEtcd.yaml
+      COMMON_STORAGETYPE: local
+      DEPLOY_MODE: STANDALONE
+    ports:
+      - "127.0.0.1:19530:19530"
+      - "127.0.0.1:9091:9091"
+    volumes:
+      - ./volumes/eval-milvus:/var/lib/milvus
+      - ./deploy/eval/embedEtcd.yaml:/milvus/configs/embedEtcd.yaml:ro
+      - ./deploy/eval/user.yaml:/milvus/configs/user.yaml:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 10s
+      start_period: 90s
+      timeout: 10s
+      retries: 6

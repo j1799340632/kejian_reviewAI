@@ -1,0 +1,4 @@
+log:
+  level: warn
+mq:
+  type: rocksmq

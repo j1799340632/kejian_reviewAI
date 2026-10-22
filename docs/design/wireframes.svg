@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="1320" viewBox="0 0 1480 1320" role="img" aria-labelledby="title desc">
+<title id="title">课间关键页面与交互状态示意</title><desc id="desc">课程入口、问答初始态、回答引用展开、完整字幕四种状态。示例文案仅用于交互说明。</desc>
+<style>text{font-family:"Microsoft YaHei","Segoe UI",sans-serif;fill:#233c3b}.small{fill:#607570}.green{fill:#285f52}</style>
+<rect x="0" y="0" width="1480" height="1320" rx="0" fill="#f4f7f4" stroke="#f4f7f4"/>
+<text x="40" y="48" font-size="30" style="font-weight:650;">课间 / 关键页面与交互状态</text>
+<text x="40" y="84" font-size="17" style="font-weight:400;fill:#607570">现有版本的低保真交互说明 · 示例内容 · SVG 可导入 Figma 继续编辑</text>
+<text x="40" y="129" font-size="20" style="font-weight:650;">P1 课程入口</text>
+<rect x="40" y="145" width="680" height="480" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<rect x="60" y="163" width="26" height="26" rx="6" fill="#285f52" stroke="#285f52"/>
+<text x="66" y="182" font-size="16" style="font-weight:400;fill:#ffffff">课</text>
+<text x="97" y="182" font-size="16" style="font-weight:650;">课间 · 课程复习助手</text>
+<path d="M40,208 L720,208" stroke="#d8e2dc"/>
+<text x="72" y="273" font-size="28" style="font-weight:650;">把课程里的问题，</text>
+<text x="72" y="310" font-size="28" style="font-weight:650;">带回原文核对。</text>
+<text x="72" y="349" font-size="16" style="font-weight:400;fill:#607570">打开一节课，围绕知识点提问并核对原文。</text>
+<text x="72" y="397" font-size="13" style="font-weight:400;fill:#607570">课程视频链接</text>
+<rect x="72" y="412" width="438" height="44" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<text x="86" y="440" font-size="14" style="font-weight:400;fill:#7d8b86">粘贴 B 站或 YouTube 课程链接</text>
+<rect x="522" y="416" width="164" height="36" rx="10" fill="#285f52" stroke="#d8e2dc"/>
+<text x="536" y="440" font-size="14" style="font-weight:400;fill:#ffffff">打开课程</text>
+<text x="72" y="490" font-size="12" style="font-weight:400;fill:#607570">示例课程</text>
+<text x="148" y="490" font-size="13" style="font-weight:400;fill:#285f52">LangChain · RAG 工作流程</text>
+<path d="M72,520 L688,520" stroke="#d8e2dc"/>
+<text x="72" y="550" font-size="14" style="font-weight:650;">01 打开课程</text>
+<text x="72" y="574" font-size="12" style="font-weight:400;fill:#607570">链接或示例</text>
+<text x="282" y="550" font-size="14" style="font-weight:650;">02 提出问题</text>
+<text x="282" y="574" font-size="12" style="font-weight:400;fill:#607570">概念、例子或步骤</text>
+<text x="492" y="550" font-size="14" style="font-weight:650;">03 核对原文</text>
+<text x="492" y="574" font-size="12" style="font-weight:400;fill:#607570">引用与时间点</text>
+<text x="72" y="608" font-size="13" style="font-weight:400;fill:#285f52">A1 · 示例仅填入链接；点击“打开课程”才解析。</text>
+<text x="760" y="129" font-size="20" style="font-weight:650;">P2 问答初始态</text>
+<rect x="760" y="145" width="680" height="480" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<rect x="780" y="163" width="26" height="26" rx="6" fill="#285f52" stroke="#285f52"/>
+<text x="786" y="182" font-size="16" style="font-weight:400;fill:#ffffff">课</text>
+<text x="817" y="182" font-size="16" style="font-weight:650;">课间 · 课程复习助手</text>
+<path d="M760,208 L1440,208" stroke="#d8e2dc"/>
+<rect x="780" y="225" width="640" height="34" rx="10" fill="#fbfcfb" stroke="#d8e2dc"/>
+<text x="792" y="247" font-size="13" style="font-weight:400;fill:#607570">课程链接 · 当前视频</text>
+<rect x="780" y="280" width="150" height="252" rx="10" fill="#fafcfb" stroke="#d8e2dc"/>
+<rect x="793" y="293" width="124" height="75" rx="10" fill="#eaf3ef" stroke="#d8e2dc"/>
+<text x="814" y="337" font-size="17" style="font-weight:650;fill:#285f52">LangChain</text>
+<text x="793" y="395" font-size="12" style="font-weight:400;fill:#607570">当前课程</text>
+<text x="793" y="424" font-size="14" style="font-weight:650;">RAG 工作流程</text>
+<text x="793" y="447" font-size="14" style="font-weight:650;">和环境准备</text>
+<text x="793" y="487" font-size="12" style="font-weight:400;fill:#285f52">打开原课程 ↗</text>
+<text x="793" y="517" font-size="12" style="font-weight:400;fill:#607570">▸ 下载选项</text>
+<rect x="950" y="280" width="470" height="290" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<text x="968" y="309" font-size="13" style="font-weight:650;fill:#285f52">AI 问答</text>
+<path d="M968,321h76" stroke="#285f52" stroke-width="2"/>
+<text x="1076" y="309" font-size="13" style="font-weight:400;fill:#607570">总结摘要</text>
+<text x="1184" y="309" font-size="13" style="font-weight:400;fill:#607570">字幕文本</text>
+<text x="1292" y="309" font-size="13" style="font-weight:400;fill:#607570">思维导图</text>
+<text x="985" y="373" font-size="20" style="font-weight:650;">从一个复习问题开始</text>
+<text x="985" y="403" font-size="14" style="font-weight:400;fill:#607570">问一个概念、例子或步骤。</text>
+<text x="985" y="429" font-size="14" style="font-weight:400;fill:#607570">首次提问时再准备字幕与索引。</text>
+<rect x="970" y="470" width="320" height="43" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<text x="984" y="497" font-size="14" style="font-weight:400;fill:#7d8b86">输入你的问题…</text>
+<rect x="1302" y="474" width="98" height="36" rx="10" fill="#285f52" stroke="#d8e2dc"/>
+<text x="1316" y="498" font-size="14" style="font-weight:400;fill:#ffffff">发送</text>
+<text x="782" y="608" font-size="13" style="font-weight:400;fill:#285f52">A2 · 默认进入问答；空问题不可发送，准备中禁用重复提交。</text>
+<text x="40" y="729" font-size="20" style="font-weight:650;">P3 回答与引用展开</text>
+<rect x="40" y="745" width="680" height="480" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<rect x="60" y="763" width="26" height="26" rx="6" fill="#285f52" stroke="#285f52"/>
+<text x="66" y="782" font-size="16" style="font-weight:400;fill:#ffffff">课</text>
+<text x="97" y="782" font-size="16" style="font-weight:650;">课间 · 课程复习助手</text>
+<path d="M40,808 L720,808" stroke="#d8e2dc"/>
+<rect x="60" y="825" width="640" height="34" rx="10" fill="#fbfcfb" stroke="#d8e2dc"/>
+<text x="72" y="847" font-size="13" style="font-weight:400;fill:#607570">课程链接 · 当前视频</text>
+<rect x="60" y="880" width="150" height="252" rx="10" fill="#fafcfb" stroke="#d8e2dc"/>
+<rect x="73" y="893" width="124" height="75" rx="10" fill="#eaf3ef" stroke="#d8e2dc"/>
+<text x="94" y="937" font-size="17" style="font-weight:650;fill:#285f52">LangChain</text>
+<text x="73" y="995" font-size="12" style="font-weight:400;fill:#607570">当前课程</text>
+<text x="73" y="1024" font-size="14" style="font-weight:650;">RAG 工作流程</text>
+<text x="73" y="1047" font-size="14" style="font-weight:650;">和环境准备</text>
+<text x="73" y="1087" font-size="12" style="font-weight:400;fill:#285f52">打开原课程 ↗</text>
+<text x="73" y="1117" font-size="12" style="font-weight:400;fill:#607570">▸ 下载选项</text>
+<rect x="230" y="880" width="470" height="290" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<text x="248" y="909" font-size="13" style="font-weight:650;fill:#285f52">AI 问答</text>
+<path d="M248,921h76" stroke="#285f52" stroke-width="2"/>
+<text x="356" y="909" font-size="13" style="font-weight:400;fill:#607570">总结摘要</text>
+<text x="464" y="909" font-size="13" style="font-weight:400;fill:#607570">字幕文本</text>
+<text x="572" y="909" font-size="13" style="font-weight:400;fill:#607570">思维导图</text>
+<rect x="322" y="939" width="357" height="37" rx="10" fill="#285f52" stroke="#285f52"/>
+<text x="336" y="964" font-size="14" style="font-weight:400;fill:#fff">文档向量为什么需要持久化保存？</text>
+<rect x="248" y="991" width="431" height="126" rx="10" fill="#f0f5f2" stroke="#d8e2dc"/>
+<text x="262" y="1017" font-size="14" style="font-weight:400;">保存已生成的向量，便于后续复用，</text>
+<text x="262" y="1040" font-size="14" style="font-weight:400;">避免每次重新向量化。[S6]</text>
+<path d="M262,1055 L662,1055" stroke="#d8e2dc"/>
+<text x="262" y="1078" font-size="12" style="font-weight:400;fill:#607570">⌄ 回答依据（1 段）</text>
+<text x="262" y="1102" font-size="13" style="font-weight:400;fill:#285f52">[S6] 04:08 ↗   对应片段原文…</text>
+<rect x="248" y="1132" width="323" height="30" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<text x="262" y="1153" font-size="12" style="font-weight:400;fill:#7d8b86">输入下一条问题…</text>
+<rect x="582" y="1131" width="98" height="36" rx="10" fill="#285f52" stroke="#d8e2dc"/>
+<text x="596" y="1155" font-size="14" style="font-weight:400;fill:#ffffff">发送</text>
+<text x="62" y="1208" font-size="13" style="font-weight:400;fill:#285f52">A3 · 仅展示有效引用，保留 S6 编号；默认折叠，点击展开。</text>
+<text x="760" y="729" font-size="20" style="font-weight:650;">P4 完整字幕</text>
+<rect x="760" y="745" width="680" height="480" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<rect x="780" y="763" width="26" height="26" rx="6" fill="#285f52" stroke="#285f52"/>
+<text x="786" y="782" font-size="16" style="font-weight:400;fill:#ffffff">课</text>
+<text x="817" y="782" font-size="16" style="font-weight:650;">课间 · 课程复习助手</text>
+<path d="M760,808 L1440,808" stroke="#d8e2dc"/>
+<rect x="780" y="825" width="640" height="34" rx="10" fill="#fbfcfb" stroke="#d8e2dc"/>
+<text x="792" y="847" font-size="13" style="font-weight:400;fill:#607570">课程链接 · 当前视频</text>
+<rect x="780" y="880" width="150" height="252" rx="10" fill="#fafcfb" stroke="#d8e2dc"/>
+<rect x="793" y="893" width="124" height="75" rx="10" fill="#eaf3ef" stroke="#d8e2dc"/>
+<text x="814" y="937" font-size="17" style="font-weight:650;fill:#285f52">LangChain</text>
+<text x="793" y="995" font-size="12" style="font-weight:400;fill:#607570">当前课程</text>
+<text x="793" y="1024" font-size="14" style="font-weight:650;">RAG 工作流程</text>
+<text x="793" y="1047" font-size="14" style="font-weight:650;">和环境准备</text>
+<text x="793" y="1087" font-size="12" style="font-weight:400;fill:#285f52">打开原课程 ↗</text>
+<text x="793" y="1117" font-size="12" style="font-weight:400;fill:#607570">▸ 下载选项</text>
+<rect x="950" y="880" width="470" height="290" rx="10" fill="#fff" stroke="#d8e2dc"/>
+<text x="968" y="909" font-size="13" style="font-weight:400;fill:#607570">AI 问答</text>
+<text x="1076" y="909" font-size="13" style="font-weight:400;fill:#607570">总结摘要</text>
+<text x="1184" y="909" font-size="13" style="font-weight:650;fill:#285f52">字幕文本</text>
+<path d="M1184,921h76" stroke="#285f52" stroke-width="2"/>
+<text x="1292" y="909" font-size="13" style="font-weight:400;fill:#607570">思维导图</text>
+<text x="970" y="956" font-size="13" style="font-weight:400;fill:#607570">完整字幕 · 独立读取</text>
+<text x="970" y="994" font-size="12" style="font-weight:400;fill:#285f52">00:17</text>
+<text x="1035" y="994" font-size="14" style="font-weight:400;">根据格式加载文档</text>
+<path d="M970,1008 L1399,1008" stroke="#d8e2dc"/>
+<text x="970" y="1036" font-size="12" style="font-weight:400;fill:#285f52">01:19</text>
+<text x="1035" y="1036" font-size="14" style="font-weight:400;">将文档切分成小块</text>
+<path d="M970,1050 L1399,1050" stroke="#d8e2dc"/>
+<text x="970" y="1078" font-size="12" style="font-weight:400;fill:#285f52">02:43</text>
+<text x="1035" y="1078" font-size="14" style="font-weight:400;">将文本转换成向量</text>
+<path d="M970,1092 L1399,1092" stroke="#d8e2dc"/>
+<text x="970" y="1120" font-size="12" style="font-weight:400;fill:#285f52">04:08</text>
+<text x="1035" y="1120" font-size="14" style="font-weight:400;">持久化保存向量</text>
+<path d="M970,1134 L1399,1134" stroke="#d8e2dc"/>
+<text x="782" y="1208" font-size="13" style="font-weight:400;fill:#285f52">A4 · 展示原视频完整字幕；读取字幕不触发摘要或模型回答。</text>
+<text x="40" y="1280" font-size="16" style="font-weight:400;fill:#607570">交互路径：P1 → P2 → P3；P2 / P3 可切换 P4。摘要与思维导图按需生成，异常状态见 PRD 规则表。</text>
+</svg>

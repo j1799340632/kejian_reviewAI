@@ -10,16 +10,11 @@
 """
 
 import sys
-import hashlib
 
 from chunker import chunk_segments, format_timestamp
 import vector_store
 import retriever
-
-
-def make_video_id(url: str) -> str:
-    """用 URL 的哈希做视频唯一标识，避免不同平台 ID 格式不统一"""
-    return hashlib.md5(url.encode()).hexdigest()[:16]
+from rag_service import make_video_id
 
 
 def build_index(url: str, force: bool = False) -> str:

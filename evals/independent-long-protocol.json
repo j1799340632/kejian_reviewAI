@@ -1,0 +1,49 @@
+{
+  "frozen_at": "2026-10-21T13:31:14.419851+00:00",
+  "dataset": "evals/cases.independent-long.jsonl",
+  "dataset_sha256": "cb63a48a7493a340da5901867a1a40ba44e838597fdb0a9912bebd62fc39f021",
+  "subtitle_sha256": "a0a4ea02232bd3421797da83e42b279d893eff3569db5360125529d84234b845",
+  "scope": "10 AI-authored questions from one different-course lecture; 2 early, 5 entirely late, 1 cross-cutoff, 2 unanswerable",
+  "first_run_before_strategy_tuning_on_this_course": true,
+  "caption_chars": 35705,
+  "caption_segments": 2570,
+  "video_duration_seconds": 6315,
+  "legacy_budget_chars": 12000,
+  "legacy_cutoff_caption": {
+    "start": 2267.64,
+    "end": 2271.58,
+    "char_start": 11999,
+    "char_end": 12018
+  },
+  "modes": [
+    "legacy",
+    "full_short"
+  ],
+  "web_strategy": "all indexed chunks up to 12000 chars including overlap; otherwise hybrid Top-3 (10 candidates per route)",
+  "code_sha256": {
+    "backend/context_policy.py": "cdb642dc8cf6ee82d74b1288f7b9e0d317d378b1919214b46b6cb2c24ab24303",
+    "backend/rag_service.py": "1b7d2eb5656a0da41bbda0bac792db03aebc7d5d26d004d67556d250921f220c",
+    "backend/retriever.py": "1dc2325320a40384defc9cb182af22cfcb0e52768b377ee99f095b80f269c2a2",
+    "backend/chunker.py": "6aeb831abc5f02b42fa7bfe5ab16a65c784f93e2dca07a145117e477ce734b3a",
+    "backend/vector_store.py": "91249c4b85fd02949c4faaa26e22f62b275d9437831664802424e4041ba76eff",
+    "backend/summarizer.py": "0a385d8b9a63917ddcb8455229c36c813d76b4291b4a35a1bdafd63316cf07b7",
+    "backend/evaluate_course.py": "d7a0492992dd70b28bf4f5c86660f50f07fc9364ca6aa1c49e127f8abf636c56"
+  },
+  "model_setup": "Same configured model and grounded prompt; temperature 0.2, max_tokens 2048, thinking disabled, one answer call per case/mode",
+  "answerable_pass": "All required points correct and grounded in valid cited supplied sources; no material unsupported additions",
+  "unanswerable_pass": "Clearly state missing evidence and invent none of the requested figures; do not conflate token probability with accuracy",
+  "partial": "At least one required point grounded but one or more missing or unsupported; or material unsupported additions",
+  "fail": "No required answer point grounded, incorrect core answer, or invented requested figures",
+  "review": "AI checks frozen points against full automatic captions, answers and actual cited snippets; evaluator knows modes; no human, audio or blind review",
+  "retrieval_analysis": "Record frozen evidence-window overlap for diagnostics only; semantic support must be read, not inferred from timestamp overlap",
+  "runtime": "Single sequential non-streaming request per question/mode; generation time excludes context preparation/indexing; no stable speed claim",
+  "structural_checks": [
+    "20 nonempty answers with stop finish_reason",
+    "Valid source IDs for citations",
+    "Preserved part and timestamp links in current mode",
+    "Dataset, snapshot and strategy hashes unchanged"
+  ],
+  "no_test_driven_tuning_in_this_run": true,
+  "after_run_role": "Observed regression cases, not an untouched holdout for subsequent changes",
+  "causal_or_population_inference": false
+}

@@ -1,0 +1,16 @@
+{
+  "recorded_at": "2026-10-21T13:56:37.713879+00:00",
+  "phase": "development-only candidate amendment, before fresh inference",
+  "initial_candidate_file": "evals/runs/iteration02-candidates.jsonl",
+  "initial_candidate_sha256": "e8138dbdb7a60db7f50026843d7214ede94a22c2924278d747af4d7b6132bbed",
+  "initial_observations": 75,
+  "findings": [
+    "Top-8 still lacks the UI extraction passage for hy-long-07.",
+    "Clause+neighbor context restores the early sampling passage but still lacks the UI extraction and parts of the late history-update passages.",
+    "Shortening question clauses can discard context; broader selection is not equivalent to complete evidence."
+  ],
+  "additional_candidate": "All indexed snippets when total including overlap is <=48000 characters; short-content behavior unchanged; above budget retains original Top-3. Threshold is an engineering preset, not an optimized value.",
+  "reason": "This real 35705-character transcript has 41216 indexed characters and can be compared as a bounded full-evidence alternative. Report input/caching tradeoff; do not claim arbitrary long-video coverage.",
+  "fresh_questions_used_for_candidate_selection": false,
+  "selection_rule": "Choose based on necessary evidence completeness in observed development cases, then compare answer quality and token usage. Freeze selected code and prompts before any fresh inference."
+}

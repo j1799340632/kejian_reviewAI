@@ -1,0 +1,58 @@
+{
+  "scope": "Fixed six-video corpus used by the second iteration; distinct cases and subtitle records are separate units",
+  "courses": 2,
+  "videos": 6,
+  "distinct_questions": 31,
+  "subtitle_characters": 59395,
+  "subtitle_segments": 4360,
+  "indexed_chunks": 170,
+  "snapshots": [
+    {
+      "snapshot": "evals/data/BV1pLWFz1Eew/part-001.json",
+      "sha256": "a0a4ea02232bd3421797da83e42b279d893eff3569db5360125529d84234b845",
+      "subtitle_characters": 35705,
+      "subtitle_segments": 2570,
+      "indexed_chunks": 102
+    },
+    {
+      "snapshot": "evals/data/BV1rv7A6oEeP/part-103.json",
+      "sha256": "b69a13a12af7976f7dfee9c27ca9d7c8f1b61b5d7619a68dab88388fa1d4aff1",
+      "subtitle_characters": 3932,
+      "subtitle_segments": 299,
+      "indexed_chunks": 11
+    },
+    {
+      "snapshot": "evals/data/BV1rv7A6oEeP/part-108.json",
+      "sha256": "a6c0fdfd9d610f7bc65634e3b03bdced0d5787f0a6088dfb4484f6f388d0018e",
+      "subtitle_characters": 5219,
+      "subtitle_segments": 387,
+      "indexed_chunks": 15
+    },
+    {
+      "snapshot": "evals/data/BV1rv7A6oEeP/part-110.json",
+      "sha256": "681ff3532a96d9d784056295e0fbd0b28f0e83e4f45d70d2f12b79d77ab1c38e",
+      "subtitle_characters": 4711,
+      "subtitle_segments": 368,
+      "indexed_chunks": 14
+    },
+    {
+      "snapshot": "evals/data/BV1rv7A6oEeP/part-112.json",
+      "sha256": "b13a63d818b0d41e452e8c025e13f81b383a7f05c6031030b477daa27cf4a6c9",
+      "subtitle_characters": 5530,
+      "subtitle_segments": 419,
+      "indexed_chunks": 16
+    },
+    {
+      "snapshot": "evals/data/BV1rv7A6oEeP/part-120.json",
+      "sha256": "4cfe3568b44825a8c71cba7aa8546a368906d23d1dd7180af57aa2aeb2020ffd",
+      "subtitle_characters": 4298,
+      "subtitle_segments": 317,
+      "indexed_chunks": 12
+    }
+  ],
+  "limitations": [
+    "Two course sources and six video parts; not six full courses",
+    "Caption characters count the frozen full_text once per video; chunk overlap is excluded",
+    "This is corpus size, not user count or independent evaluation sample count"
+  ]
+}

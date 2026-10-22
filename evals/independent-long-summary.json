@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-21",
+  "human_reviewed": false,
+  "reviewer": "Codex AI",
+  "run_file": "evals/runs/independent-long-20261021.jsonl",
+  "run_sha256": "4a4cc9228d029a5be3de894dfca34b9ba41790203f6a1b2824725e6ecd503050",
+  "protocol_file": "evals/independent-long-protocol.json",
+  "protocol_sha256": "095e045766659c6d62c5532e3c11a7ffc272b8791d72746aa397ade9c6b69370",
+  "dataset_file": "evals/cases.independent-long.jsonl",
+  "dataset_sha256": "cb63a48a7493a340da5901867a1a40ba44e838597fdb0a9912bebd62fc39f021",
+  "review_file": "evals/reviews.independent-long.json",
+  "review_sha256": "294fea666df9f740a06e092cd6b58027f715277887311675e9752752f1913d9b",
+  "source": {
+    "video_url": "https://www.bilibili.com/video/BV1pLWFz1Eew/?p=1",
+    "official_course_url": "https://speech.ee.ntu.edu.tw/~hylee/GenAI-ML/2025-fall.php",
+    "subtitle_snapshot": "evals/data/BV1pLWFz1Eew/part-001.json",
+    "subtitle_sha256": "a0a4ea02232bd3421797da83e42b279d893eff3569db5360125529d84234b845",
+    "subtitle_chars": 35705,
+    "segments": 2570,
+    "duration_seconds": 6315,
+    "legacy_cutoff_caption": {
+      "start": 2267.64,
+      "end": 2271.58,
+      "char_start": 11999,
+      "char_end": 12018
+    }
+  },
+  "index_check_file": "evals/runs/independent-long-index-check-20261021.json",
+  "index_check_sha256": "f014252674338055d6ed796691a661d41322382d76efd0a99b1ac972add5d608",
+  "index_check": {
+    "video_id": "731fba94ca7432a3",
+    "collection": "video_evaluation",
+    "stored_chunks": 102,
+    "expected_chunks": 102,
+    "indexed_chars_including_overlap": 41216,
+    "max_chunk_chars": 427,
+    "exact_chunk_text_and_approx_time_match": true,
+    "whitespace_normalized_deduplicated_reconstruction_matches_snapshot": true,
+    "last_caption_end_seconds": 6314.22,
+    "stored_last_end_seconds": 6314.22021484375,
+    "snapshot_sha256": "a0a4ea02232bd3421797da83e42b279d893eff3569db5360125529d84234b845"
+  },
+  "requested_models": [
+    "deepseek-flash"
+  ],
+  "response_models": [
+    "deepseek-flash"
+  ],
+  "generation_parameters": {
+    "thinking": "disabled",
+    "temperature": 0.2,
+    "max_tokens": 2048
+  },
+  "checks": {
+    "20_nonempty_stop_answers": true,
+    "cited_source_ids_exist": true,
+    "current_mode_30_part_and_time_links_valid": true,
+    "snapshot_and_dataset_hashes_unchanged": true,
+    "strategy_code_hashes_unchanged_since_freeze": true,
+    "102_stored_chunks_match_complete_caption": true
+  },
+  "modes": {
+    "legacy": {
+      "cases": 10,
+      "verdict_counts": {
+        "pass": 3,
+        "partial": 3,
+        "fail": 4
+      },
+      "verdicts_by_evidence_position": {
+        "early": {
+          "pass": 1,
+          "partial": 1
+        },
+        "late": {
+          "fail": 4,
+          "partial": 1
+        },
+        "cross_cutoff": {
+          "partial": 1
+        },
+        "not_applicable": {
+          "pass": 2
+        }
+      },
+      "prompt_tokens": 66303,
+      "completion_tokens": 1950,
+      "prompt_cache_hit_tokens": 57600,
+      "prompt_cache_miss_tokens": 8703,
+      "mean_generation_ms": 1798.508,
+      "context_chars_total": 120000,
+      "first_context_preparation_ms": 0.27,
+      "remaining_context_preparation_mean_ms": 0.24,
+      "context_strategies": {
+        "first_12000_characters": 10
+      }
+    },
+    "full_short": {
+      "cases": 10,
+      "verdict_counts": {
+        "fail": 1,
+        "partial": 5,
+        "pass": 4
+      },
+      "verdicts_by_evidence_position": {
+        "early": {
+          "fail": 1,
+          "partial": 1
+        },
+        "late": {
+          "partial": 3,
+          "pass": 2
+        },
+        "cross_cutoff": {
+          "partial": 1
+        },
+        "not_applicable": {
+          "pass": 2
+        }
+      },
+      "prompt_tokens": 7372,
+      "completion_tokens": 2013,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 7372,
+      "mean_generation_ms": 1784.588,
+      "context_chars_total": 12194,
+      "first_context_preparation_ms": 30937.96,
+      "remaining_context_preparation_mean_ms": 33.632,
+      "context_strategies": {
+        "hybrid_top3_long_fallback": 10
+      }
+    }
+  },
+  "limitations": [
+    "One different-course lecture, ten deliberately constructed questions, one response per mode/question",
+    "AI-authored and nonblind AI review of automatic captions; no human/audio/slide verification",
+    "No strategy tuning on these results; future use is regression, not untouched holdout",
+    "Question 02 asks whether search guarantees correctness, while its frozen second point additionally requires saying search reduces hallucinations. Legacy answers the main guarantee question correctly but omits that positive effect. Keep the frozen stricter partial judgment; do not silently treat it as a core factual error or revise the score after observing outputs.",
+    "Generation timing excludes context preparation, networking setup and user review; no speed or billing claim"
+  ]
+}

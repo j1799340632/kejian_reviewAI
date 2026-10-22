@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-21",
+  "purpose": "Fix missing necessary evidence in short-caption compound questions",
+  "datasets": ["evals/cases.bilibili-langchain.jsonl", "evals/cases.course-check.jsonl"],
+  "dataset_role": "15 already-observed same-course development questions, not a held-out test",
+  "candidates": {
+    "full_short": "Use all indexed chunks only when their combined text including overlap is at most 12000 characters; otherwise retain hybrid Top-3",
+    "hybrid6": "Hybrid candidate pool 10 per route, final Top-6",
+    "split": "Original question plus up to 3 rule-split subquestions, hybrid Top-3 per query, interleaved deduplication, max 8 sources; no extra model call"
+  },
+  "screening": "Compare actual selected evidence for known failures and context volume without generating model answers",
+  "selection_priority": ["Necessary evidence and answer coverage", "No invented answers to unanswerable questions", "Input/output token use and implementation complexity"],
+  "generation_check": "Validate selected candidate on all 15 development questions, keeping model and answer Prompt unchanged",
+  "deployment_scope": "Only a verified short-context route may replace Top-3; no long-caption quality claim",
+  "quality_reviewer": "Codex AI against complete auto captions and actual cited excerpts; human_reviewed remains false"
+}

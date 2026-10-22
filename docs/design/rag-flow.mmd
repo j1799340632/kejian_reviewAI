@@ -1,0 +1,38 @@
+flowchart LR
+  subgraph PREP["01 · 首次准备 / 索引复用"]
+    direction TB
+    A["课程 URL / video_id 与问题"] --> B{"字幕索引已存在？"}
+    B -->|否| C["提取带时间戳字幕"]
+    C --> D{"字幕是否可用？"}
+    D -->|否| X["返回无字幕反馈 · 不调用回答模型"]
+    D -->|是| E["400 字分块 / 80 字重叠"]
+    E --> F["bge 向量化 · 存入 Milvus"]
+    B -->|是：复用索引| G["读取当前视频的全部入库片段"]
+    F --> G
+  end
+  subgraph CONTEXT["02 · 上下文选择"]
+    direction TB
+    H{"入库文本合计 ≤48,000 字符？"}
+    H -->|是：包含分块重叠| I["按视频时间顺序提供全部片段"]
+    H -->|否| J["向量 + BM25 检索 · RRF 融合 · Top-3"]
+    I --> K{"是否有可用片段？"}
+    J --> K
+    K -->|否| Y["说明未找到可用依据 · 不调用回答模型"]
+  end
+  subgraph ANSWER["03 · 回答与引用展示"]
+    direction TB
+    L["问题 + 来源编号片段 + 回答约束"]
+    L --> M["DeepSeek 生成回答"]
+    M --> N["不确定代码写法检查 · 流式返回"]
+    N --> O["前端筛选引用：有效编号 / 去重 / 保留原编号"]
+    O --> P["展示回答与可展开依据 · 提供视频时间链接"]
+  end
+    PREP -->|仅字幕可用时| CONTEXT
+    CONTEXT -->|仅有可用片段时| ANSWER
+
+    classDef primary fill:#eaf3ef,stroke:#285f52,color:#193f36,stroke-width:1.6px;
+    classDef choice fill:#f0f4fa,stroke:#7e94b1,color:#33485f;
+    classDef warning fill:#fff5e9,stroke:#b88645,color:#765320;
+    class A,C,E,F,G,I,J,L,M,N,O,P primary;
+    class B,D,H,K choice;
+    class X,Y warning;

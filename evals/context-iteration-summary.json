@@ -1,0 +1,38 @@
+{
+  "human_reviewed": false,
+  "dataset_role": "same_course_development_regression",
+  "run_sha256": "ab067c09fd830f450a6d87156ccb72a0048d8b8b1df4e470639bcdb3215b599e",
+  "previous_hybrid3": {
+    "calls": 15,
+    "input_tokens": 11673,
+    "output_tokens": 2491,
+    "mean_generation_ms": 1876.96
+  },
+  "selected_short_context": {
+    "calls": 15,
+    "input_tokens": 46468,
+    "output_tokens": 3274,
+    "mean_generation_ms": 2056.65
+  },
+  "verdict_counts": {
+    "pass": 13,
+    "partial": 2,
+    "fail": 0
+  },
+  "supplemental_10_verdict_counts": {
+    "pass": 9,
+    "partial": 1,
+    "fail": 0
+  },
+  "browser_report": "evals/runs/context-browser-20261021.json",
+  "browser_sha256": "a5e9d20d0388d29251d693a988b9c57157bdb34f9141ae33108615d1e90f872b",
+  "browser_validation": {
+    "status": "passed",
+    "part": 112,
+    "sources_per_answer": 16,
+    "default_collapsed": true,
+    "expansion_checked": true,
+    "video_id_reuse_checked": true,
+    "player_seek_verified": false
+  }
+}

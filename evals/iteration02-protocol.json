@@ -1,0 +1,43 @@
+{
+  "frozen_at": "2026-10-21T13:48:40.076936+00:00",
+  "date_local": "2026-10-21",
+  "reviewer": "Codex AI",
+  "human_reviewed": false,
+  "regression_dataset": "evals/cases.iteration02-regression.jsonl",
+  "regression_sha256": "fa3f5b4881d0a1acd5c3e3add89e54a0ef716bf21db53318c66adc0e5c6c5486",
+  "regression_cases": 25,
+  "fresh_dataset": "evals/cases.iteration02-fresh.jsonl",
+  "fresh_sha256": "af9f50bb3cd8f308e9120f54e90228089ca7af38c397e7c6b592fb63201554dc",
+  "fresh_cases": 6,
+  "source_dataset_sha256": {
+    "evals/cases.bilibili-langchain.jsonl": "61a91c47045576199fb23efeb361bfc087ea3c9e4cd81ac23b8fcd05a3bdab77",
+    "evals/cases.course-check.jsonl": "4742c71b6a567e9ab97d41af6b714e0847788538e0de9f4814e243bab1551535",
+    "evals/cases.independent-long.jsonl": "cb63a48a7493a340da5901867a1a40ba44e838597fdb0a9912bebd62fc39f021"
+  },
+  "baseline_code_sha256": {
+    "backend/context_policy.py": "cdb642dc8cf6ee82d74b1288f7b9e0d317d378b1919214b46b6cb2c24ab24303",
+    "backend/retriever.py": "1dc2325320a40384defc9cb182af22cfcb0e52768b377ee99f095b80f269c2a2",
+    "backend/rag_service.py": "1b7d2eb5656a0da41bbda0bac792db03aebc7d5d26d004d67556d250921f220c",
+    "backend/summarizer.py": "0a385d8b9a63917ddcb8455229c36c813d76b4291b4a35a1bdafd63316cf07b7",
+    "backend/evaluate_course.py": "d7a0492992dd70b28bf4f5c86660f50f07fc9364ca6aa1c49e127f8abf636c56"
+  },
+  "baseline_code_copy": "evals/runs/iteration02-baseline-code",
+  "candidate_plan": [
+    "Keep existing short-content full context; compare unchanged long Top-3, long Top-8, and clause-query retrieval with bounded neighboring chunks",
+    "Do retrieval-only candidate screening on the 25 observed questions; manually inspect necessary evidence, not timestamp overlap alone",
+    "Select and freeze a bounded strategy before reading any fresh-question model answer; max 5 queries, 20 chunks, 10000 context characters for the expanded candidate",
+    "Revise grounded answer prompt for question completeness and automatic-caption/uncertain-code ambiguity; do not hardcode lecture facts or corrected model names"
+  ],
+  "generation_plan": "25 regression questions: baseline context+v1 prompt and selected context+v2 prompt. Six fresh questions: same paired settings, once each after selection is frozen. No tuning after fresh results.",
+  "scope": "Two courses, six videos; fresh questions come from the already inspected long lecture, not unseen course/domain or independent human authors",
+  "comparison_caveat": "Context and prompt both change in the selected bundle; do not attribute bundle quality change solely to retrieval. One response per setting/question, no statistical or population claim.",
+  "answerable_pass": "Necessary points correctly answered and grounded in actual cited supplied snippets; no material unsupported additions, code spellings or ASR-driven entity conversions",
+  "unanswerable_pass": "State missing requested evidence; invent none of the requested figures",
+  "partial": "Some requested content grounded, but missing/incomplete points or material unsupported additions",
+  "fail": "No requested answer grounded, central answer wrong, or invented requested figures",
+  "no_answer_reference_scope": "AI review of full fixed captions, not lecture audio/slides; model refusal about supplied snippets alone is not evidence of full-video absence",
+  "guardrail_points": "Prohibitions such as do-not-generalize-dimension or do-not-promise-preserved-semantics do not require an explicit disclaimer when no prohibited claim is made",
+  "historical_scores": "Preserve original cases/reviews. Rescore both new baseline and selected outputs under the same revised regression rubric; do not compare an old strict score to a revised score as an improvement.",
+  "browser_plan": "Real homepage -> parse long lecture -> two real questions -> source expansion -> later source link opens correct part/time; verify ID reuse and input recovery; no mocked external services",
+  "completion": "Report candidate choice, paired development and fresh results, cost/timing caveats, remaining failures and real browser observations; no fabricated human experience"
+}

@@ -16,7 +16,7 @@ from pymilvus import MilvusClient, DataType
 from embedder import DIMENSION, embed_documents, embed_query
 
 MILVUS_ENDPOINT = os.getenv("MILVUS_ENDPOINT", "http://localhost:19530")
-COLLECTION = "video_subtitles"
+COLLECTION = os.getenv("MILVUS_COLLECTION", "video_subtitles")
 
 _client: Optional[MilvusClient] = None
 

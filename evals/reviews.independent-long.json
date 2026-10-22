@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-21",
+  "reviewer": "Codex AI",
+  "human_reviewed": false,
+  "blind_review": false,
+  "scope": "AI reads frozen necessary points, full automatic captions, generated answers and cited snippets. No audio or slide verification and no external learners.",
+  "run_file": "evals/runs/independent-long-20261021.jsonl",
+  "run_sha256": "4a4cc9228d029a5be3de894dfca34b9ba41790203f6a1b2824725e6ecd503050",
+  "protocol_file": "evals/independent-long-protocol.json",
+  "dataset_sha256": "cb63a48a7493a340da5901867a1a40ba44e838597fdb0a9912bebd62fc39f021",
+  "dataset_role": "different_course_first_check; observed regression cases after this run",
+  "post_run_external_check": {
+    "url": "https://huggingface.co/docs/transformers/main_classes/tokenizer#transformers.PreTrainedTokenizerBase.encode",
+    "purpose": "Verify an extra code parameter emitted for question 03; never supplied to either answer model or used to revise the frozen gold points.",
+    "finding": "The documented encode option is add_special_tokens, not the generated as_special_token. Automatic captions contain phonetic text and do not establish exact code spelling. This does not verify what appeared on the lecture screen."
+  },
+  "rubric_limitation": "Question 02 asks whether search guarantees correctness, while its frozen second point additionally requires saying search reduces hallucinations. Legacy answers the main guarantee question correctly but omits that positive effect. Keep the frozen stricter partial judgment; do not silently treat it as a core factual error or revise the score after observing outputs.",
+  "point_labels": {
+    "covered": "Correct necessary point supported by the answer's cited snippets",
+    "partial": "Part of the necessary point supported; one requested component missing",
+    "missing": "Not answered or explicitly cannot confirm",
+    "unsupported": "Asserted but not established by supplied cited snippets"
+  },
+  "rows": [
+    {
+      "case_id": "hy-long-01", "mode": "legacy", "verdict": "pass",
+      "point_assessments": ["covered", "covered", "covered"],
+      "failure_types": [],
+      "notes": "S1 includes probability sampling, appending generated tokens until the ending symbol and randomness. All three necessary points are answered."
+    },
+    {
+      "case_id": "hy-long-01", "mode": "full_short", "verdict": "fail",
+      "point_assessments": ["missing", "missing", "missing"],
+      "failure_types": ["retrieval_missing_necessary_evidence", "answerable_abstention"],
+      "notes": "Retrieved output-distribution/code, classification and tokenizer chunks, not the frozen early generation/sampling evidence. Answer correctly acknowledges insufficient snippets, but none of sampling, append-and-repeat-to-EOS or randomness is answered. This is an early-question regression against the prefix baseline."
+    },
+    {
+      "case_id": "hy-long-02", "mode": "legacy", "verdict": "partial",
+      "point_assessments": ["covered", "partial"],
+      "failure_types": ["frozen_rubric_overrequires_explanation"],
+      "notes": "S1 supports continuation rather than database lookup and explicitly supports search not guaranteeing correctness. Answer does not state the positive hallucination-reduction effect included in frozen point 2. Main question is correctly answered; partial reflects the stricter frozen rubric, not a fabricated fact."
+    },
+    {
+      "case_id": "hy-long-02", "mode": "full_short", "verdict": "partial",
+      "point_assessments": ["covered", "partial"],
+      "failure_types": ["retrieval_missing_necessary_evidence"],
+      "notes": "S3 supports continuation, lack of database lookup and reducing hallucinations with search. It ends before the explicit not-guaranteed warning. Answer declines to confirm a guarantee instead of reproducing the lecture's explicit warning. Keep partial for point 2 and distinguish this cautious response from a false guarantee."
+    },
+    {
+      "case_id": "hy-long-03", "mode": "legacy", "verdict": "fail",
+      "point_assessments": ["missing", "missing", "missing"],
+      "failure_types": ["prefix_excludes_necessary_evidence", "answerable_abstention"],
+      "notes": "Necessary tokenizer and begin_of_text evidence is entirely after character 12000. Answer explicitly cannot confirm the requested functions or marker. General image/audio encoder discussion is not the requested tokenizer answer."
+    },
+    {
+      "case_id": "hy-long-03", "mode": "full_short", "verdict": "partial",
+      "point_assessments": ["covered", "covered", "covered"],
+      "failure_types": ["asr_code_spelling_not_grounded", "incorrect_extra_code_parameter"],
+      "notes": "All necessary concepts are restored: encode/decode in S1/S3, default starting symbol in S2. However it additionally presents as_special_token=False as executable-looking advice. Captions only provide phonetic wording, and the documented encode argument is add_special_tokens. Retain partial for this material extra code error; do not blame the lecture without screen verification."
+    },
+    {
+      "case_id": "hy-long-04", "mode": "legacy", "verdict": "fail",
+      "point_assessments": ["missing", "missing"],
+      "failure_types": ["prefix_excludes_necessary_evidence", "answerable_abstention"],
+      "notes": "Prefix has no good/space demonstration. Model acknowledges missing evidence and supplies neither necessary point."
+    },
+    {
+      "case_id": "hy-long-04", "mode": "full_short", "verdict": "pass",
+      "point_assessments": ["covered", "covered"],
+      "failure_types": [],
+      "notes": "S1 supports leading-space token distinction; S2 supports removal of the space restoring the same good token. Numeric IDs are present in the cited captions, although no independent audio/screen confirmation was performed."
+    },
+    {
+      "case_id": "hy-long-05", "mode": "legacy", "verdict": "fail",
+      "point_assessments": ["missing", "missing", "missing"],
+      "failure_types": ["prefix_excludes_necessary_evidence", "answerable_abstention"],
+      "notes": "General probability-sampling principles occur early, but top-k restriction and the k=1/k=3 demonstration do not. Answer declines to invent them."
+    },
+    {
+      "case_id": "hy-long-05", "mode": "full_short", "verdict": "pass",
+      "point_assessments": ["covered", "covered", "covered"],
+      "failure_types": [],
+      "notes": "S1 supports excluding low-probability candidates and k=1 selecting the maximum. S3 supports random top-three selection with varying results. Answer also repeats the demonstration's odd outputs, so it is not counted as promising that top-k guarantees coherent answers."
+    },
+    {
+      "case_id": "hy-long-06", "mode": "legacy", "verdict": "fail",
+      "point_assessments": ["missing", "missing", "missing"],
+      "failure_types": ["prefix_excludes_necessary_evidence", "answerable_abstention"],
+      "notes": "Prefix explains what a template is but lacks the official-template demonstration, typing-error reason and apply_chat_template encoding behavior. Answer explicitly cannot confirm them."
+    },
+    {
+      "case_id": "hy-long-06", "mode": "full_short", "verdict": "partial",
+      "point_assessments": ["covered", "partial", "covered"],
+      "failure_types": ["model_omits_available_necessary_point"],
+      "notes": "S1 contains the bad ending behavior, official model-specific template and the warning that manually typing a complex template is error-prone. Answer covers ending/model fit and S3's encoding, but omits the manual-complexity/typing-error reason in frozen point 2 despite retrieving it. This is not solely a retrieval failure."
+    },
+    {
+      "case_id": "hy-long-07", "mode": "legacy", "verdict": "partial",
+      "point_assessments": ["covered", "partial", "partial", "missing"],
+      "failure_types": ["prefix_excludes_necessary_evidence"],
+      "notes": "Role-marked user/AI prompt organization and the concept of a template are supported in S1, as is generic token generation. But prefix lacks template-to-ID encoding, model.generate/tokenizer.decode implementation and extracting just the model reply. Model acknowledges those gaps. Do not count generic generation as the entire third point."
+    },
+    {
+      "case_id": "hy-long-07", "mode": "full_short", "verdict": "partial",
+      "point_assessments": ["covered", "partial", "partial", "missing"],
+      "failure_types": ["retrieval_missing_necessary_evidence", "asr_entity_misread"],
+      "notes": "S3 supplies message roles and S2 supplies template -> generate -> text, but retrieval misses the main UI/answer-extraction passage at about 95 minutes and explicit template encoding. It also reads S3's ASR rendering of the model name Gemma (解码) as a decoding operation improving Chinese output. This is an unsupported interpretation; actual tokenizer.decode and answer extraction remain unestablished."
+    },
+    {
+      "case_id": "hy-long-08", "mode": "legacy", "verdict": "partial",
+      "point_assessments": ["covered", "partial", "unsupported"],
+      "failure_types": ["prefix_excludes_late_necessary_evidence", "unsupported_extra_interpretation"],
+      "notes": "Early S1 supports disambiguating the mountain follow-up from history. Answer gives the general history-plus-new-question principle but says role/message implementation is unavailable. It suggests appending the new response without the late demonstration being supplied, and additionally claims the model does not really understand, which this lecture evidence does not establish."
+    },
+    {
+      "case_id": "hy-long-08", "mode": "full_short", "verdict": "partial",
+      "point_assessments": ["covered", "partial", "missing"],
+      "failure_types": ["retrieval_missing_late_necessary_evidence", "unsupported_extra_interpretation"],
+      "notes": "All three retrieved chunks cluster around the early mountain example. No late implementation/update passage is supplied. S2 supports including past conversation, but explicit user/assistant message preservation and adding the new answer are incomplete. The answer's claim about not understanding and its unqualified new-chat memory statement exceed the lecture's deliberately simplified scope."
+    },
+    {
+      "case_id": "hy-long-09", "mode": "legacy", "verdict": "pass",
+      "point_assessments": ["covered", "covered"], "failure_types": [],
+      "notes": "Explicitly says supplied evidence has no Llama/Gemma accuracy or evaluation question count; invents neither. Full-caption AI absence check agrees. This is not a claim that the model searched the full lecture."
+    },
+    {
+      "case_id": "hy-long-09", "mode": "full_short", "verdict": "pass",
+      "point_assessments": ["covered", "covered"], "failure_types": [],
+      "notes": "Correctly scopes missing benchmark figures to supplied snippets and invents no accuracy or question count. Numeric token IDs in S1 are not misreported as evaluation metrics. Full-caption absence was checked separately by AI."
+    },
+    {
+      "case_id": "hy-long-10", "mode": "legacy", "verdict": "pass",
+      "point_assessments": ["covered", "covered"], "failure_types": [],
+      "notes": "States no monthly-active or paid-conversion figures in supplied snippets, supplies no invented numbers. Full-caption AI absence check agrees."
+    },
+    {
+      "case_id": "hy-long-10", "mode": "full_short", "verdict": "pass",
+      "point_assessments": ["covered", "covered"], "failure_types": [],
+      "notes": "States insufficient snippet evidence for operating metrics and invents none. This tests appropriate refusal, not full-video search or commercial performance."
+    }
+  ]
+}

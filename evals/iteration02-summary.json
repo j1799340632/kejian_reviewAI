@@ -1,0 +1,239 @@
+{
+  "recorded_at": "2026-10-21T14:18:59.202552+00:00",
+  "reviewer": "Codex AI",
+  "human_reviewed": false,
+  "courses": 2,
+  "videos": 6,
+  "different_questions": 31,
+  "paired_reviewed_observations": 62,
+  "development_live_model_calls": 75,
+  "fresh_live_model_calls": 12,
+  "successful_browser_live_model_calls": 2,
+  "all_iteration_live_model_calls": 89,
+  "deterministic_replay_extra_calls": 0,
+  "candidate_observations": 100,
+  "additional_ad_hoc_retrieval_probes": 3,
+  "candidates": {
+    "full_short": {
+      "records": 25,
+      "context_chars_total": 93170,
+      "long_course_context_chars": 12194
+    },
+    "hybrid8": {
+      "records": 25,
+      "context_chars_total": 113583,
+      "long_course_context_chars": 32607
+    },
+    "expanded": {
+      "records": 25,
+      "context_chars_total": 137617,
+      "long_course_context_chars": 56641
+    },
+    "bounded_full": {
+      "records": 25,
+      "context_chars_total": 493136,
+      "long_course_context_chars": 412160
+    }
+  },
+  "results": {
+    "regression_baseline": {
+      "questions": 25,
+      "verdict_counts": {
+        "pass": 16,
+        "partial": 8,
+        "fail": 1
+      },
+      "raw_model_verdict_counts": {
+        "pass": 16,
+        "partial": 8,
+        "fail": 1
+      },
+      "prompt_tokens": 53840,
+      "completion_tokens": 5193,
+      "prompt_cache_hit_tokens": 48638,
+      "prompt_cache_miss_tokens": 5202,
+      "mean_generation_ms": 1790.488,
+      "strategies": {
+        "all_indexed_short_context": 15,
+        "hybrid_top3_long_fallback": 10
+      },
+      "context_chars_total": 93170,
+      "guard_changed_cases": [],
+      "verdicts_by_course": {
+        "lc-": {
+          "pass": 12,
+          "partial": 3
+        },
+        "hy-long-": {
+          "fail": 1,
+          "partial": 5,
+          "pass": 4
+        }
+      }
+    },
+    "regression_selected": {
+      "questions": 25,
+      "verdict_counts": {
+        "pass": 23,
+        "partial": 2
+      },
+      "raw_model_verdict_counts": {
+        "pass": 22,
+        "partial": 3
+      },
+      "prompt_tokens": 265446,
+      "completion_tokens": 5267,
+      "prompt_cache_hit_tokens": 223360,
+      "prompt_cache_miss_tokens": 42086,
+      "mean_generation_ms": 1816.764,
+      "strategies": {
+        "all_indexed_short_context": 15,
+        "all_indexed_extended_context": 10
+      },
+      "context_chars_total": 493136,
+      "guard_changed_cases": [
+        "hy-long-03"
+      ],
+      "verdicts_by_course": {
+        "lc-": {
+          "pass": 14,
+          "partial": 1
+        },
+        "hy-long-": {
+          "pass": 9,
+          "partial": 1
+        }
+      }
+    },
+    "fresh_baseline": {
+      "questions": 6,
+      "verdict_counts": {
+        "pass": 5,
+        "partial": 1
+      },
+      "raw_model_verdict_counts": {
+        "pass": 5,
+        "partial": 1
+      },
+      "prompt_tokens": 4380,
+      "completion_tokens": 781,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 4380,
+      "mean_generation_ms": 1484.47,
+      "strategies": {
+        "hybrid_top3_long_fallback": 6
+      },
+      "context_chars_total": 7301,
+      "guard_changed_cases": [],
+      "verdicts_by_course": {
+        "hy-fresh-": {
+          "pass": 5,
+          "partial": 1
+        }
+      }
+    },
+    "fresh_selected": {
+      "questions": 6,
+      "verdict_counts": {
+        "pass": 6
+      },
+      "raw_model_verdict_counts": {
+        "pass": 6
+      },
+      "prompt_tokens": 128937,
+      "completion_tokens": 935,
+      "prompt_cache_hit_tokens": 127488,
+      "prompt_cache_miss_tokens": 1449,
+      "mean_generation_ms": 1774.292,
+      "strategies": {
+        "all_indexed_extended_context": 6
+      },
+      "context_chars_total": 247296,
+      "guard_changed_cases": [],
+      "verdicts_by_course": {
+        "hy-fresh-": {
+          "pass": 6
+        }
+      }
+    }
+  },
+  "selected_bundle": {
+    "mode": "bounded_full",
+    "prompt_version": "v3",
+    "output_policy": "source_code_v1",
+    "indexed_context_budget_chars": 48000,
+    "oversized_fallback": "Unchanged hybrid Top-3; no true >48000-character quality sample in this iteration"
+  },
+  "checks": {
+    "62_nonempty_stop_answers": true,
+    "all_emitted_source_ids_exist": true,
+    "all_evaluation_source_links_preserve_part_and_timestamp": true,
+    "frozen_datasets_and_snapshots_unchanged": true,
+    "selected_code_unchanged_before_and_after_fresh_inference": true,
+    "display_guard_replay_matches_live_policy": true,
+    "live_web_102_source_texts_match_frozen_long_snapshot_chunks": true,
+    "backend_tests_passed": 36,
+    "frontend_tests_passed": 3,
+    "frontend_build_passed": true
+  },
+  "no_citation_bracket_refusals": [
+    {
+      "case_id": "lc-check-10",
+      "setting": "selected"
+    },
+    {
+      "case_id": "hy-long-10",
+      "setting": "selected"
+    }
+  ],
+  "browser": {
+    "record": "evals/runs/iteration02-browser-02.json",
+    "parse_ms": 1097,
+    "questions_elapsed_ms": [
+      33877,
+      1587
+    ],
+    "source_count_each": [
+      102,
+      102
+    ],
+    "source_click": {
+      "id": "S93",
+      "expected": "https://www.bilibili.com/video/BV1pLWFz1Eew/?p=1&t=5741",
+      "opened": "https://www.bilibili.com/video/BV1pLWFz1Eew/?p=1&t=5741",
+      "timestamp": "01:35:41"
+    },
+    "page_errors": [],
+    "first_attempt": "Script-only exact accessible-name mismatch before submitting any chat; raw failure record retained",
+    "video_playback_verified": false,
+    "human_learning_task": false
+  },
+  "bound_files_sha256": {
+    "evals/iteration02-protocol.json": "fa8bb170a3b255c2e1f492fafa6ed521f7c5c792b212cc0b951e984cd44468fc",
+    "evals/iteration02-candidate-amendment.json": "e9e96f946cc79624f616ee02f04708e783f6d4fbb77e29aea79a5199b00f2790",
+    "evals/iteration02-selection.json": "c48b6207e3bbfda1764f7031d458e3e35b101e045558805016167e2bea06b110",
+    "evals/reviews.iteration02.json": "edb267e71a25d501705172ab52b9ecfa0f0b860a42734917435cb9d783dd3f5d",
+    "evals/runs/iteration02-candidates.jsonl": "e8138dbdb7a60db7f50026843d7214ede94a22c2924278d747af4d7b6132bbed",
+    "evals/runs/iteration02-bounded-candidate.jsonl": "d10a956a8cb22d323511f36070c8b5b7100d903d5abc8f7b4f00b5ad132c028b",
+    "evals/runs/iteration02-regression-baseline.jsonl": "b7c9f4d24df67c1c4c881a610387103e76662fb470f6c33478433ef28d0126b3",
+    "evals/runs/iteration02-regression-selected.jsonl": "adb47d6ef16314ba3138ee7bf175e893c8e6e33700bc6ac26ff760a3d0f3a3b2",
+    "evals/runs/iteration02-regression-final.jsonl": "ca7b36e8197ab6e8a38ff2a51d913b911c6db1cc5b0fcd161141d0f474383198",
+    "evals/runs/iteration02-fresh-baseline.jsonl": "cfaad6faab9c6bc29b51e9439b84198a9a3fdff4ca2c19010141c86246a66be2",
+    "evals/runs/iteration02-fresh-selected.jsonl": "314a4d8ec6536159b705bb6054e10de784886bffaf87eeb330b3bf5408f4c160",
+    "evals/runs/iteration02-regression-guarded.jsonl": "17a2f42c62f1f6e8fd99e47153f1319177447a1de63034f408a49197909c3af6",
+    "evals/runs/iteration02-browser-02.json": "bba83a7f6e4c8ffc1170e9b5d60dfe7d1fd85e8758db7168f22a9ce1a4ffc92d",
+    "evals/runs/iteration02-browser.json": "b2e51215394c84398c4828482761142f013d935b0d7845a5b446085468f3a1c0",
+    "evals/cases.iteration02-regression.jsonl": "fa3f5b4881d0a1acd5c3e3add89e54a0ef716bf21db53318c66adc0e5c6c5486",
+    "evals/cases.iteration02-fresh.jsonl": "af9f50bb3cd8f308e9120f54e90228089ca7af38c397e7c6b592fb63201554dc"
+  },
+  "limitations": [
+    "Both contexts and prompt/output policies change; cannot attribute the bundle result solely to retrieval",
+    "AI-authored, nonblind AI review against automatic captions, not human/audio or user feedback",
+    "Fresh questions are from an already inspected lecture, not independent-course generalization",
+    "Raw selected model still emits an unverified parameter; visible guard replacement is counted separately",
+    "No semantic code validator; lexical guard may miss other constructs or replace valid but unverified code",
+    "Short early baseline/selected development requests overlapped in time; all timing is descriptive, not a controlled performance comparison",
+    "Input budgets are engineering presets; larger-context and cache observations do not establish billing or learning-efficiency improvement",
+    "No real quality validation above the new 48000-character indexed budget"
+  ]
+}

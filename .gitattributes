@@ -1,0 +1,7 @@
+# Frozen evaluation evidence is hashed as exact bytes across checkouts.
+backend/*.py -text
+evals/*.json -text
+evals/*.jsonl -text
+
+# Allow Windows line endings without rewriting frozen evidence.
+* whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

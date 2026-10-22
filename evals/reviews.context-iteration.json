@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-21",
+  "reviewer": "Codex AI",
+  "human_reviewed": false,
+  "scope": "AI review of necessary points and critical citations against automatic captions; no audio or video screen verification",
+  "run_file": "evals/runs/context-selected-20261021.jsonl",
+  "run_sha256": "ab067c09fd830f450a6d87156ccb72a0048d8b8b1df4e470639bcdb3215b599e",
+  "dataset_role": "same_course_development_regression",
+  "rows": [
+    {"case_id": "lc-course-01", "verdict": "pass", "point_assessments": ["covered", "covered", "covered", "covered"], "notes": "Loading is restored by S1/S2, splitting by S3, embedding by S4, persistence by S6. Exact Document field spelling remains ASR-dependent."},
+    {"case_id": "lc-course-02", "verdict": "pass", "point_assessments": ["covered", "covered", "covered", "covered"], "notes": "Covers boundary splitting, overlap and recursion, describes mitigation rather than guaranteed preservation. Quoted word examples retain ASR uncertainty."},
+    {"case_id": "lc-course-03", "verdict": "partial", "point_assessments": ["covered", "covered", "partial"], "notes": "Recursion order, stop condition and length/meaning goals are covered. Frozen required point 3 also mentions customizable separators, which this answer omits. This requirement exceeds the main wording of the question; keep the frozen judgment and revise rubric consistency separately rather than changing this score."},
+    {"case_id": "lc-course-04", "verdict": "pass", "point_assessments": ["covered", "covered", "covered", "covered"], "notes": "Single-query input/output supported by S10-S12, list input/output by S13/S14, CSV chain by S15/S16. Uses two example dimensions rather than a universal fixed dimension."},
+    {"case_id": "lc-course-05", "verdict": "pass", "point_assessments": ["covered", "covered", "covered", "covered"], "notes": "Includes result formatting, user prompt, Agent messages and insufficient-evidence handling. Exact message-index syntax still requires screen verification."},
+    {"case_id": "lc-check-01", "verdict": "pass", "point_assessments": ["covered", "covered"], "notes": "Loading and Document result have S1 support. Exact field spelling not audio/screen verified."},
+    {"case_id": "lc-check-02", "verdict": "pass", "point_assessments": ["covered", "covered"], "notes": "S6 supports persistence and avoiding repeated conversion."},
+    {"case_id": "lc-check-03", "verdict": "pass", "point_assessments": ["covered", "covered"], "notes": "S3 supports overlapping windows; S2/S3 support mitigation of broken meaning."},
+    {"case_id": "lc-check-04", "verdict": "pass", "point_assessments": ["covered", "covered", "covered"], "notes": "Previously missing unequal-size explanation is now supported by S5; model overhead and slowdown supported by S4."},
+    {"case_id": "lc-check-05", "verdict": "pass", "point_assessments": ["covered", "covered"], "notes": "Previously missing punctuation examples are now supported by S3; customization supported by S3/S10."},
+    {"case_id": "lc-check-06", "verdict": "pass", "point_assessments": ["covered", "covered"], "notes": "String-list input and vector-list output supported by S13/S14."},
+    {"case_id": "lc-check-07", "verdict": "partial", "point_assessments": ["covered", "covered", "covered"], "notes": "All formerly missing necessary loading/embedding/persistence points are restored. However the answer adds PDF to source-format examples while S1 and the complete P103 captions do not mention PDF. Retain partial for an unsupported extra factual example instead of marking complete success."},
+    {"case_id": "lc-check-08", "verdict": "pass", "point_assessments": ["covered", "covered", "covered"], "notes": "Single-string/vector structure supported by S11/S12, CSV text-extraction chain by S15, multiple vectors by S13/S14. Does not claim unknown exact code fields."},
+    {"case_id": "lc-check-09", "verdict": "pass", "point_assessments": ["covered", "covered"], "notes": "Explicitly states missing accuracy/recall/sample-count evidence; no requested numbers invented."},
+    {"case_id": "lc-check-10", "verdict": "pass", "point_assessments": ["covered", "covered"], "notes": "Explicitly states missing operating metrics; no daily-active-user or conversion figures invented."}
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "reviewer": "Codex AI",
+  "review_date": "2026-10-21",
+  "review_scope": "AI semantic assessment against complete automatic caption snapshots and retrieved source excerpts; not human, audio or screen review",
+  "human_reviewed": false,
+  "run_file": "evals/runs/course-check-20261021.jsonl",
+  "run_sha256": "e39f4f63e068c356401ddf00014696799a71adebbf6bf32b8d9991e35cefb5df",
+  "dataset_role": "same_course_supplemental_diagnostic",
+  "verdict_rule": "Pass requires every necessary point and support for critical claims from valid cited excerpts; partial means at least one necessary point is missing, incomplete or not supported by the citations. Unanswerable passes only with explicit insufficient-evidence feedback and no invented requested figures.",
+  "rows": [
+    {
+      "case_id": "lc-check-01",
+      "verdict": "pass",
+      "point_assessments": ["covered", "covered"],
+      "citation_assessment": "Key loading and Document claims supported by S2.",
+      "notes": "Meets necessary points. Extra content/content-field spelling comes from ambiguous ASR and remains unverified against code screen."
+    },
+    {
+      "case_id": "lc-check-02",
+      "verdict": "pass",
+      "point_assessments": ["covered", "covered"],
+      "citation_assessment": "S1 supports saving vectors to avoid repeated conversion.",
+      "notes": "The quoted teaching expression 崩溃 is colloquial source wording, not an observed application failure."
+    },
+    {
+      "case_id": "lc-check-03",
+      "verdict": "pass",
+      "point_assessments": ["covered", "covered"],
+      "citation_assessment": "S1 supports overlapping adjacent chunks and mitigating broken meaning.",
+      "notes": "ASR wording 语音断裂 is identified as likely semantic/sentence splitting ambiguity; no guarantee of perfect semantic preservation is added."
+    },
+    {
+      "case_id": "lc-check-04",
+      "verdict": "partial",
+      "point_assessments": ["covered", "covered", "missing"],
+      "citation_assessment": "S2 supports extra model cost and slower execution. No selected excerpt explains unequal semantic-unit lengths.",
+      "notes": "The complete P108 snapshot explains unequal chunk sizes at 03:31–03:45, just after the selected excerpt ending near 03:31. Answer explicitly cannot confirm this part."
+    },
+    {
+      "case_id": "lc-check-05",
+      "verdict": "partial",
+      "point_assessments": ["covered", "missing"],
+      "citation_assessment": "S2 supports setting custom separators; retrieved excerpts omit punctuation examples.",
+      "notes": "P110 01:50–01:59 contains comma, period, exclamation mark and ellipsis examples. The model refuses this subquestion because the excerpts miss them."
+    },
+    {
+      "case_id": "lc-check-06",
+      "verdict": "pass",
+      "point_assessments": ["covered", "covered"],
+      "citation_assessment": "S2 supports string-list input; S1 supports multiple returned vectors.",
+      "notes": "Both required input/output structures are covered."
+    },
+    {
+      "case_id": "lc-check-07",
+      "verdict": "partial",
+      "point_assessments": ["partial", "covered", "covered"],
+      "citation_assessment": "S2 supports embedding and S1 persistence. S3 discusses delayed loading and loader standardization but omits the full Document-loading explanation.",
+      "notes": "The answer describes loading broadly, but omits the required format-specific loader and Document result. Full loading evidence is at P103 00:17–00:58."
+    },
+    {
+      "case_id": "lc-check-08",
+      "verdict": "partial",
+      "point_assessments": ["partial", "partial", "covered"],
+      "citation_assessment": "S2 supports string-list to vector-list output. Selected excerpts lack the single-query output demonstration and CSV extraction/splitting steps.",
+      "notes": "Answer proposes a single-vector output but says its structure cannot be confirmed, and does not give the Document-text extraction chain. Necessary evidence exists in the full P112 snapshot at 08:31–09:26 and 11:55–12:59."
+    },
+    {
+      "case_id": "lc-check-09",
+      "verdict": "pass",
+      "point_assessments": ["covered", "covered"],
+      "citation_assessment": "Answer correctly limits absence to supplied material. AI inspection of the complete P108 caption snapshot found no requested numerical comparison or sample count.",
+      "notes": "No accuracy, recall or evaluation sample size is invented. Absence review covers captions only."
+    },
+    {
+      "case_id": "lc-check-10",
+      "verdict": "pass",
+      "point_assessments": ["covered", "covered"],
+      "citation_assessment": "Answer states insufficient evidence. AI inspection of the complete P120 caption snapshot found no requested post-launch operating metrics.",
+      "notes": "No daily active user count or paid conversion rate is invented. Absence review covers captions only."
+    }
+  ]
+}

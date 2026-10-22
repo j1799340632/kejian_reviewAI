@@ -1,0 +1,26 @@
+flowchart TB
+    A["输入课程链接 / 选择示例"] --> B["打开课程：解析视频信息"]
+    B -->|成功| C["进入课程工作区 · 默认 AI 问答"]
+    B -->|失败| X["保留链接并显示错误"]
+    X -->|调整链接后重新打开| A
+    C --> D["输入一个具体的复习问题"]
+    D --> E["首次准备字幕与索引 / 后续复用索引"]
+    E -->|可用| F["基于课程依据生成回答"]
+    E -->|无字幕| N["说明无法依据视频回答 · 更换课程"]
+    F --> G["查看带来源编号的回答"]
+    F -->|服务失败或流中断| R["显示反馈 · 恢复输入"]
+    R -->|重新发送问题| D
+    G --> H["展开回答依据：仅显示实际引用片段"]
+    H --> I["点击时间链接 · 返回原视频核对"]
+    I --> J["判断是否采纳 · 在自己的笔记中整理"]
+    C -.-> K["字幕文本：独立读取完整字幕"]
+    C -.-> L["摘要 / 思维导图：主动点击后生成"]
+    K -.->|查找原文后继续提问| D
+    N --> A
+
+    classDef primary fill:#eaf3ef,stroke:#285f52,color:#193f36,stroke-width:1.6px;
+    classDef optional fill:#f5f7f8,stroke:#a8b5ba,color:#394b53;
+    classDef warning fill:#fff5e9,stroke:#b88645,color:#765320;
+    class A,B,C,D,E,F,G,H,I,J primary;
+    class K,L optional;
+    class X,N,R warning;

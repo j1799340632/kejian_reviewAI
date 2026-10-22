@@ -1,0 +1,119 @@
+{
+  "dataset_role": "same_course_supplemental_diagnostic",
+  "reviewer": "Codex AI",
+  "human_reviewed": false,
+  "run_sha256": "e39f4f63e068c356401ddf00014696799a71adebbf6bf32b8d9991e35cefb5df",
+  "case_count": 10,
+  "generated": 10,
+  "ai_verdict_counts": {
+    "pass": 6,
+    "partial": 4,
+    "fail": 0
+  },
+  "input_tokens": 7827,
+  "output_tokens": 1396,
+  "mean_generation_ms": 1827.97,
+  "median_generation_ms": 1558.99,
+  "structural_checks": [
+    {
+      "case_id": "lc-check-01",
+      "answer_sha256": "cbe773ae468cabac691af28bf14410d8125478b6d23ec7abf91d46145065a211",
+      "ai_verdict": "pass",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-02",
+      "answer_sha256": "3f9aca4ae482041a88701ed9bed47f36200d619e7e71cce00d9c94f401715b9a",
+      "ai_verdict": "pass",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-03",
+      "answer_sha256": "eb0c01d8a04174cc7ed117b5594354f56d1a628fc2770cc2b3dcee7a42327751",
+      "ai_verdict": "pass",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-04",
+      "answer_sha256": "0d7eb12ecdef130391044fdaba5111f396ede46b30923009ab3b4afb981938a5",
+      "ai_verdict": "partial",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-05",
+      "answer_sha256": "34bf08b52576dc62874b2e03c88ac96a0c77b279866d40b92abec4aac983801b",
+      "ai_verdict": "partial",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-06",
+      "answer_sha256": "7034114f6afb4bc991d61e58362405396d19a4efd86f6ba019fc3518e2ec7aa2",
+      "ai_verdict": "pass",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-07",
+      "answer_sha256": "bc1f4e4a01040af3bb0ae2d91863ccd1a5ba71d9e9a39bfcf761e3697321bd28",
+      "ai_verdict": "partial",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-08",
+      "answer_sha256": "5d38d98f7bcd9f8ee75907f1b61cab2af12b53b356321f3c04048e036f0080e0",
+      "ai_verdict": "partial",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-09",
+      "answer_sha256": "059758e884063fe27cf89b82a9879d95e0482f296878be3b3dbebb9574a838ee",
+      "ai_verdict": "pass",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    },
+    {
+      "case_id": "lc-check-10",
+      "answer_sha256": "8a70acf4b79430e39f4e91bb23e01a94e1c4a214e0621b2137217b5d25138ae1",
+      "ai_verdict": "pass",
+      "nonempty_answer": true,
+      "finish_stop": true,
+      "cited_ids_exist": true,
+      "links_match_part_and_time": true,
+      "excerpts_in_snapshot": true
+    }
+  ]
+}

@@ -39,8 +39,14 @@ backend/data/
 # 测试脚本
 backend/test_*.py
 
-# 截图等非代码文件
+# 临时截图；README 展示图保留在 docs/images
 *.png
+!/docs/images/*.png
 
 # Milvus 数据目录
 volumes/
+
+# 本地课程字幕快照，评测记录保留来源与哈希
+evals/data/
+# 原始回答与上下文保存在本地；评审报告单独整理
+evals/runs/

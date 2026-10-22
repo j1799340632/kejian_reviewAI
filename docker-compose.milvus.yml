@@ -10,7 +10,7 @@
 #   19530  Milvus gRPC 服务端口（Python 客户端连这个）
 #   9091   Milvus 健康检查 / WebUI
 #   9001   MinIO 控制台（账号 minioadmin / minioadmin）
-#   8000   Attu 可视化界面（浏览器打开 http://localhost:8000）
+#   8001   Attu 可视化界面（避免与 FastAPI 的 8000 端口冲突）
 
 services:
   etcd:
@@ -81,7 +81,7 @@ services:
     environment:
       MILVUS_URL: standalone:19530
     ports:
-      - "8000:3000"
+      - "8001:3000"
     depends_on:
       - "standalone"
 

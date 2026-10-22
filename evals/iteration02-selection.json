@@ -1,0 +1,42 @@
+{
+  "frozen_at": "2026-10-21T14:07:45.251196+00:00",
+  "mode": "bounded_full",
+  "prompt_version": "v3",
+  "output_policy": "source_code_v1",
+  "model_prompt_sha256": "8db7ca4d49f22f2adecb4816531b0bceab4b328761b9ea4fb8d56380ea5e954b",
+  "code_sha256": {
+    "backend/context_policy.py": "4d653f8068a5e4c0f393db7a12e6be2352098b919d1026258588141dabb92247",
+    "backend/answer_guard.py": "88844efb6091e879b72974b55e38b5ea5368a4ee9b0045a7502f69d326514653",
+    "backend/summarizer.py": "da3966f7ab1884dfb98b8313e6f1d8e6b25e0ebedc2430a94f821d07778d21a2",
+    "backend/rag_service.py": "de77aafdb422296c7222d19a3153d0377a68f7547fa66989809720b06831d707",
+    "backend/evaluate_course.py": "ad8848f136482510967ff58df83855222542f2b5cc154231e83768fc5d894c67",
+    "backend/retriever.py": "1dc2325320a40384defc9cb182af22cfcb0e52768b377ee99f095b80f269c2a2",
+    "backend/chunker.py": "6aeb831abc5f02b42fa7bfe5ab16a65c784f93e2dca07a145117e477ce734b3a",
+    "backend/vector_store.py": "91249c4b85fd02949c4faaa26e22f62b275d9437831664802424e4041ba76eff"
+  },
+  "web_route": "Same mode, v3 prompt, line-buffered shared output guard. Up to 48000 indexed characters including overlap; larger captions retain Top-3.",
+  "why": "Four development candidates: Top-3, Top-8, clause+neighbors and bounded full snippets. Only bounded full retains every required passage in this long lecture. More context is a quality/cost decision, not an optimized threshold.",
+  "development_observations": [
+    "75 initial retrieval observations plus 25 added bounded-full observations",
+    "25 live baseline responses under old v1 prompt, 25 interim v2, 25 final v3",
+    "v2/v3 prompts alone still produced an unsupported parameter spelling; add lexical code provenance guard",
+    "Final 25 v3 raw responses preserved; one deterministic display replay changed one unsupported expression without a further model call",
+    "Long question 06 still omits an available reason; retain partial result, do not claim all issues fixed"
+  ],
+  "regression_files": {
+    "baseline": "evals/runs/iteration02-regression-baseline.jsonl",
+    "interim_v2": "evals/runs/iteration02-regression-selected.jsonl",
+    "selected_raw_v3": "evals/runs/iteration02-regression-final.jsonl",
+    "selected_display": "evals/runs/iteration02-regression-guarded.jsonl"
+  },
+  "regression_file_sha256": {
+    "evals/runs/iteration02-regression-baseline.jsonl": "b7c9f4d24df67c1c4c881a610387103e76662fb470f6c33478433ef28d0126b3",
+    "evals/runs/iteration02-regression-selected.jsonl": "adb47d6ef16314ba3138ee7bf175e893c8e6e33700bc6ac26ff760a3d0f3a3b2",
+    "evals/runs/iteration02-regression-final.jsonl": "ca7b36e8197ab6e8a38ff2a51d913b911c6db1cc5b0fcd161141d0f474383198",
+    "evals/runs/iteration02-regression-guarded.jsonl": "17a2f42c62f1f6e8fd99e47153f1319177447a1de63034f408a49197909c3af6"
+  },
+  "fresh_dataset_sha256": "af9f50bb3cd8f308e9120f54e90228089ca7af38c397e7c6b592fb63201554dc",
+  "fresh_model_inference_started": false,
+  "fresh_review_scope": "Same already inspected lecture; fresh questions only, not a new course or independent annotator. No tuning after fresh outputs.",
+  "quality_scope": "Evaluate product-visible answer and raw model answer separately when guard changes it. Guard verifies lexical presence only, not factual correctness or all types of code."
+}

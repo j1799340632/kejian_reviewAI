@@ -132,7 +132,7 @@ def main():
 
     print("\n" + "=" * 56)
     print("  全部通过，Milvus 可以正常使用")
-    print("  可视化界面：http://localhost:8000")
+    print("  Attu 可视化界面（完整组件配置）：http://localhost:8001")
     print("=" * 56)
 
 

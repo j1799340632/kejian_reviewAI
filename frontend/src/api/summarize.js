@@ -3,8 +3,6 @@
  * 使用原生 fetch + ReadableStream 处理 SSE 流式响应
  */
 
-import { getToken } from './auth'
-
 async function handleSSEStream(response, callbacks) {
   const reader = response.body.getReader()
   const decoder = new TextDecoder()
@@ -32,18 +30,19 @@ async function handleSSEStream(response, callbacks) {
     buffer = lines.pop() || ''
 
     for (const line of lines) {
-      if (line === '') {
+      const normalizedLine = line.endsWith('\r') ? line.slice(0, -1) : line
+      if (normalizedLine === '') {
         dispatch()
         continue
       }
 
-      if (line.startsWith(':')) continue
+      if (normalizedLine.startsWith(':')) continue
 
-      const colonIdx = line.indexOf(':')
+      const colonIdx = normalizedLine.indexOf(':')
       if (colonIdx < 0) continue
 
-      const field = line.slice(0, colonIdx)
-      let val = line.slice(colonIdx + 1)
+      const field = normalizedLine.slice(0, colonIdx)
+      let val = normalizedLine.slice(colonIdx + 1)
       if (val.startsWith(' ')) val = val.slice(1)
 
       if (field === 'event') {
@@ -57,17 +56,10 @@ async function handleSSEStream(response, callbacks) {
   dispatch()
 }
 
-function authHeaders() {
-  const token = getToken()
-  const headers = { 'Content-Type': 'application/json' }
-  if (token) headers['Authorization'] = `Bearer ${token}`
-  return headers
-}
-
 export async function summarizeVideo(url, language = 'zh', callbacks = {}) {
   const response = await fetch('/api/summarize', {
     method: 'POST',
-    headers: authHeaders(),
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url, language }),
   })
 
@@ -78,11 +70,11 @@ export async function summarizeVideo(url, language = 'zh', callbacks = {}) {
   await handleSSEStream(response, callbacks)
 }
 
-export async function chatWithVideo(url, question, subtitleText = '', callbacks = {}) {
+export async function chatWithVideo(url, question, videoId = null, callbacks = {}) {
   const response = await fetch('/api/chat', {
     method: 'POST',
-    headers: authHeaders(),
-    body: JSON.stringify({ url, question, subtitle_text: subtitleText }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url, question, ...(videoId ? { video_id: videoId } : {}) }),
   })
 
   if (!response.ok) {
@@ -90,4 +82,14 @@ export async function chatWithVideo(url, question, subtitleText = '', callbacks 
   }
 
   await handleSSEStream(response, callbacks)
+}
+
+export async function getSubtitles(url) {
+  const response = await fetch('/api/subtitles', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url }),
+  })
+  if (!response.ok) throw new Error('暂时无法读取字幕，请稍后重试。')
+  return response.json()
 }

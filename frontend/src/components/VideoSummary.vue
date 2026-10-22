@@ -1,19 +1,18 @@
 <template>
-  <div class="bg-white rounded-2xl border border-border shadow-lg overflow-hidden h-full flex flex-col">
+  <div class="bg-white rounded-2xl border border-border overflow-hidden min-w-0 flex flex-col">
         <!-- 标签页导航 -->
-        <div class="flex border-b border-border-light">
+        <div class="flex overflow-x-auto border-b border-border-light" aria-label="复习工具">
           <button
             v-for="tab in tabs"
             :key="tab.key"
             @click="activeTab = tab.key"
             :class="[
-              'flex items-center gap-2 px-5 py-3.5 text-sm font-medium transition-all relative cursor-pointer',
+              'flex shrink-0 items-center gap-2 px-4 py-4 text-sm font-medium transition-all relative cursor-pointer whitespace-nowrap',
               activeTab === tab.key
                 ? 'text-primary'
                 : 'text-text-secondary hover:text-text-primary'
             ]"
           >
-            <span>{{ tab.icon }}</span>
             <span>{{ tab.label }}</span>
             <div
               v-if="activeTab === tab.key"
@@ -32,6 +31,9 @@
 
           <!-- 总结摘要 Tab -->
           <div v-show="activeTab === 'summary'">
+            <p v-if="summaryScope?.partial" class="text-sm text-amber-700 mb-4">
+              当前摘要仅覆盖部分字幕，可能遗漏视频后续内容，复习时请结合原视频核对。
+            </p>
             <div
               v-if="summaryText"
               class="prose prose-slate prose-sm max-w-none summary-prose"
@@ -41,12 +43,13 @@
               <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
               AI 正在生成中...
             </div>
-            <!-- 每日剩余次数提示 -->
-            <div v-if="quotaInfo && quotaInfo.remaining >= 0 && !loading" class="mt-4 p-3 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-between">
-              <span class="text-sm text-blue-700">
-                今日剩余 AI 总结次数：<strong>{{ quotaInfo.remaining }}</strong> / {{ quotaInfo.limit }}
-              </span>
+            <div v-if="!summaryText && !loading" class="py-12 text-center">
+              <h2 class="text-base font-medium mb-2">先整理课程重点</h2>
+              <p class="text-sm text-text-secondary mb-5">按需生成摘要和思维导图，复习时仍需核对原课程。</p>
+              <button @click="startSummarize" class="px-4 py-2.5 rounded-lg bg-primary text-white text-sm cursor-pointer hover:bg-primary-dark">生成摘要与思维导图</button>
             </div>
+            <button v-if="summaryText && !loading" @click="startSummarize" class="mt-4 text-xs text-primary hover:underline cursor-pointer">重新生成摘要与思维导图</button>
+            <p v-if="summaryError" role="alert" class="mt-4 text-sm text-error">{{ summaryError }}</p>
           </div>
 
           <!-- 字幕文本 Tab -->
@@ -112,11 +115,12 @@
                 </div>
               </div>
             </div>
-            <div v-else-if="!loading" class="flex flex-col items-center justify-center py-16 text-text-muted">
+            <div v-else-if="!subtitleLoading" class="flex flex-col items-center justify-center py-16 text-text-muted">
               <svg class="w-12 h-12 mb-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <p class="text-sm">该视频暂无可用字幕</p>
+              <p class="text-sm" :role="subtitleError ? 'alert' : undefined">{{ subtitleError || '该视频暂无可用字幕' }}</p>
+              <button v-if="subtitleError" @click="loadSubtitles" class="mt-3 text-sm text-primary cursor-pointer hover:underline">重试读取字幕</button>
             </div>
             <div v-else class="flex flex-col items-center justify-center py-16">
               <div class="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-3"></div>
@@ -126,6 +130,9 @@
 
           <!-- 思维导图 Tab -->
           <div v-show="activeTab === 'mindmap'">
+            <p v-if="summaryScope?.partial" class="text-sm text-amber-700 mb-4">
+              当前思维导图仅覆盖部分字幕，不能作为整段课程的完整提纲。
+            </p>
             <div v-if="mindmapMarkdown" class="relative">
               <!-- 工具栏 -->
               <div class="flex items-center justify-end gap-2 mb-3">
@@ -193,7 +200,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
               </svg>
-              <p class="text-sm">请先生成总结以查看思维导图</p>
+              <h2 class="text-base font-medium text-text-primary mb-2">把知识点串起来</h2>
+              <p class="text-sm mb-5">生成后可以缩放查看，也可以导出图片。</p>
+              <button @click="startSummarize" class="px-4 py-2.5 rounded-lg bg-primary text-white text-sm cursor-pointer hover:bg-primary-dark">生成摘要与思维导图</button>
+              <p v-if="summaryError" role="alert" class="mt-4 text-sm text-error">{{ summaryError }}</p>
             </div>
           </div>
 
@@ -203,17 +213,18 @@
               <!-- 对话列表 -->
               <div
                 ref="chatContainer"
-                class="space-y-4 max-h-[400px] overflow-y-auto pr-1"
+                class="space-y-4 max-h-[520px] overflow-y-auto pr-1"
               >
                 <div v-if="chatMessages.length === 0" class="flex flex-col items-center justify-center py-12 text-text-muted">
                   <svg class="w-12 h-12 mb-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
-                  <p class="text-sm mb-1">向 AI 提问关于这个视频的任何问题</p>
-                  <p class="text-xs">例如："这个视频的核心观点是什么？"</p>
+                  <h2 class="text-base font-medium text-text-primary mb-2">从一个复习问题开始</h2>
+                  <p class="text-sm text-text-secondary text-center leading-6">问一个概念、例子或步骤，<br />再展开回答依据，回到课程中核对。</p>
+                  <button @click="chatInput = '这节课的主要步骤是什么？每一步有什么作用？'" class="mt-5 px-3 py-2 rounded-lg border border-border text-xs text-primary hover:bg-primary-light cursor-pointer">试问：这节课的主要步骤是什么？</button>
                 </div>
                 <div
-                  v-for="(msg, idx) in chatMessages"
+                  v-for="(msg, idx) in chatMessagesWithCitations"
                   :key="idx"
                   :class="[
                     'flex',
@@ -222,14 +233,27 @@
                 >
                   <div
                     :class="[
-                      'max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed',
+                      'px-4 py-2.5 rounded-2xl text-sm leading-relaxed',
                       msg.role === 'user'
-                        ? 'bg-primary text-white rounded-br-md'
-                        : 'bg-bg-section text-text-primary rounded-bl-md border border-border-light'
+                        ? 'max-w-[90%] sm:max-w-[80%] bg-primary text-white rounded-br-md'
+                        : 'w-full sm:w-auto sm:max-w-[90%] bg-bg-section text-text-primary rounded-bl-md border border-border-light'
                     ]"
                   >
                     <div v-if="msg.role === 'assistant'" class="chat-prose prose prose-slate prose-sm max-w-none" v-html="renderMarkdown(msg.content)"></div>
                     <span v-else>{{ msg.content }}</span>
+                    <p v-if="msg.loading && !msg.content" class="text-xs text-text-muted">
+                      {{ msg.status || '正在准备回答…' }}
+                    </p>
+                    <details v-if="msg.citedSources.length" class="mt-3 pt-3 border-t border-border-light space-y-2">
+                      <summary class="text-xs text-text-muted cursor-pointer">查看回答依据（{{ msg.citedSources.length }} 段）· 点击时间点核对原文</summary>
+                      <div v-for="source in msg.citedSources" :key="source.id" class="text-xs leading-relaxed">
+                        <a v-if="source.url" :href="source.url" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">
+                          [{{ source.id }}] {{ source.timestamp }} ↗
+                        </a>
+                        <span v-else class="text-primary">[{{ source.id }}] {{ source.timestamp }}</span>
+                        <p class="text-text-secondary mt-1">{{ source.text }}</p>
+                      </div>
+                    </details>
                     <span
                       v-if="msg.role === 'assistant' && msg.loading"
                       class="inline-block w-1.5 h-4 bg-primary/60 rounded-sm animate-pulse ml-0.5 align-text-bottom"
@@ -270,32 +294,36 @@
 </template>
 
 <script setup>
-import { ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { ref, reactive, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { marked } from 'marked'
 import { Transformer } from 'markmap-lib'
 import { Markmap } from 'markmap-view'
-import { summarizeVideo, chatWithVideo } from '../api/summarize.js'
+import { summarizeVideo, chatWithVideo, getSubtitles } from '../api/summarize.js'
+import { getCitedSources } from '../utils/citations.js'
 
 const props = defineProps({
   videoUrl: { type: String, required: true },
   videoTitle: { type: String, default: '' },
-  user: { type: Object, default: null },
 })
-const emit = defineEmits(['loading-change', 'need-login'])
 
 const tabs = [
-  { key: 'summary', label: '总结摘要', icon: '📝' },
-  { key: 'subtitle', label: '字幕文本', icon: '📄' },
-  { key: 'mindmap', label: '思维导图', icon: '🧠' },
-  { key: 'qa', label: 'AI 问答', icon: '💬' },
+  { key: 'qa', label: 'AI 问答' },
+  { key: 'summary', label: '总结摘要' },
+  { key: 'subtitle', label: '字幕文本' },
+  { key: 'mindmap', label: '思维导图' },
 ]
 
-const activeTab = ref('summary')
+const activeTab = ref('qa')
 const loading = ref(false)
 const loadingMessage = ref('正在提取视频字幕...')
 
 const summaryText = ref('')
+const summaryError = ref('')
+const summaryScope = ref(null)
 const subtitleData = ref({ segments: [], has_subtitle: false })
+const subtitleLoading = ref(false)
+const subtitlesLoaded = ref(false)
+const subtitleError = ref('')
 const subtitleExpanded = ref(false)
 const mindmapMarkdown = ref('')
 const mindmapSvg = ref(null)
@@ -303,6 +331,11 @@ const mindmapContainer = ref(null)
 let markmapInstance = null
 
 const chatMessages = ref([])
+const chatMessagesWithCitations = computed(() => chatMessages.value.map(message => ({
+  ...message,
+  citedSources: getCitedSources(message.content, message.sources),
+})))
+const indexedVideoId = ref(null)
 const chatInput = ref('')
 const chatLoading = ref(false)
 const chatContainer = ref(null)
@@ -327,18 +360,18 @@ marked.setOptions({
   gfm: true,
 })
 
-watch(loading, (val) => {
-  emit('loading-change', val)
+watch(activeTab, (tab) => {
+  if (tab === 'subtitle') loadSubtitles()
 })
 
 watch(summaryText, (val) => {
   renderedSummary.value = renderMarkdown(val)
 })
 
-watch(mindmapMarkdown, async (val) => {
-  if (val) {
+watch([activeTab, mindmapMarkdown], async ([tab, markdown]) => {
+  if (tab === 'mindmap' && markdown) {
     await nextTick()
-    renderMindmap(val)
+    renderMindmap(markdown)
   }
 })
 
@@ -350,6 +383,7 @@ function renderMarkdown(text) {
 function renderMindmap(md) {
   if (!mindmapSvg.value) return
   try {
+    markmapInstance?.destroy()
     mindmapSvg.value.innerHTML = ''
     const transformer = new Transformer()
     const { root } = transformer.transform(md)
@@ -641,13 +675,27 @@ function handleClickOutside(e) {
   }
 }
 
-const quotaInfo = ref(null)
+async function loadSubtitles() {
+  if (subtitleLoading.value || subtitlesLoaded.value) return
+  subtitleLoading.value = true
+  subtitleError.value = ''
+  try {
+    subtitleData.value = await getSubtitles(props.videoUrl)
+    subtitlesLoaded.value = true
+  } catch (err) {
+    subtitleError.value = err.message
+  } finally {
+    subtitleLoading.value = false
+  }
+}
 
 async function startSummarize() {
+  if (loading.value) return
   loading.value = true
+  summaryError.value = ''
   summaryText.value = ''
+  summaryScope.value = null
   mindmapMarkdown.value = ''
-  quotaInfo.value = null
   loadingMessage.value = '正在提取视频字幕...'
 
   try {
@@ -655,6 +703,7 @@ async function startSummarize() {
       subtitle: (data) => {
         try {
           subtitleData.value = JSON.parse(data)
+          subtitlesLoaded.value = true
           if (subtitleData.value.has_subtitle) {
             loadingMessage.value = 'AI 正在分析视频内容...'
           }
@@ -663,14 +712,14 @@ async function startSummarize() {
       summary: (data) => {
         try { summaryText.value += JSON.parse(data) } catch { summaryText.value += data }
       },
+      summary_scope: (data) => {
+        try { summaryScope.value = JSON.parse(data) } catch {}
+      },
       mindmap: (data) => {
         try {
           const parsed = JSON.parse(data)
           mindmapMarkdown.value = parsed.markdown || ''
         } catch (e) { /* ignore parse error */ }
-      },
-      quota: (data) => {
-        try { quotaInfo.value = JSON.parse(data) } catch {}
       },
       done: () => {
         loading.value = false
@@ -679,19 +728,17 @@ async function startSummarize() {
         loading.value = false
         try {
           const parsed = JSON.parse(data)
-          if (parsed.need_login) {
-            emit('need-login')
-            return
-          }
-          alert(parsed.message || '总结失败')
+          summaryError.value = parsed.message || '暂时无法生成摘要，请重试。'
         } catch (e) {
-          alert('总结失败: ' + data)
+          summaryError.value = '暂时无法生成摘要，请重试。'
         }
       },
     })
   } catch (err) {
     loading.value = false
-    alert('总结请求失败: ' + err.message)
+    summaryError.value = '暂时无法生成摘要，请稍后重试。'
+  } finally {
+    loading.value = false
   }
 }
 
@@ -702,7 +749,7 @@ async function sendQuestion() {
   chatInput.value = ''
   chatMessages.value.push({ role: 'user', content: question })
 
-  const aiMessage = { role: 'assistant', content: '', loading: true }
+  const aiMessage = reactive({ role: 'assistant', content: '', loading: true, status: '', sources: [] })
   chatMessages.value.push(aiMessage)
   chatLoading.value = true
 
@@ -713,8 +760,17 @@ async function sendQuestion() {
     await chatWithVideo(
       props.videoUrl,
       question,
-      subtitleData.value.full_text || '',
+      indexedVideoId.value,
       {
+        video: (data) => {
+          indexedVideoId.value = JSON.parse(data).video_id
+        },
+        status: (data) => {
+          aiMessage.status = JSON.parse(data).message
+        },
+        sources: (data) => {
+          aiMessage.sources = JSON.parse(data).sources || []
+        },
         answer: (data) => {
           try { aiMessage.content += JSON.parse(data) } catch { aiMessage.content += data }
           scrollChatToBottom()
@@ -735,10 +791,16 @@ async function sendQuestion() {
         },
       }
     )
+    if (aiMessage.loading) {
+      aiMessage.content += (aiMessage.content ? '\n\n' : '') + '连接已中断，请重新提问。'
+    }
   } catch (err) {
     aiMessage.loading = false
     chatLoading.value = false
     aiMessage.content = '❌ 请求失败: ' + err.message
+  } finally {
+    aiMessage.loading = false
+    chatLoading.value = false
   }
 }
 
@@ -751,13 +813,13 @@ function scrollChatToBottom() {
 }
 
 onMounted(() => {
-  startSummarize()
   document.addEventListener('fullscreenchange', onFullscreenChange)
   document.addEventListener('webkitfullscreenchange', onFullscreenChange)
   document.addEventListener('click', handleClickOutside)
 })
 
 onBeforeUnmount(() => {
+  markmapInstance?.destroy()
   document.removeEventListener('fullscreenchange', onFullscreenChange)
   document.removeEventListener('webkitfullscreenchange', onFullscreenChange)
   document.removeEventListener('click', handleClickOutside)

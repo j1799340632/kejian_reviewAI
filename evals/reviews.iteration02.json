@@ -1,0 +1,973 @@
+{
+  "reviewed_at": "2026-10-21T14:15:32.007897+00:00",
+  "reviewer": "Codex AI",
+  "human_reviewed": false,
+  "blind_review": false,
+  "scope": "AI reviews full fixed automatic captions, frozen points, answers and actual citations; no lecture audio/video frames or student participants",
+  "rubric": "evals/iteration02-protocol.json; revised regression cases, historical cases/scores untouched",
+  "run_files": {
+    "regression_baseline": "evals/runs/iteration02-regression-baseline.jsonl",
+    "regression_selected": "evals/runs/iteration02-regression-guarded.jsonl",
+    "fresh_baseline": "evals/runs/iteration02-fresh-baseline.jsonl",
+    "fresh_selected": "evals/runs/iteration02-fresh-selected.jsonl"
+  },
+  "run_sha256": {
+    "regression_baseline": "b7c9f4d24df67c1c4c881a610387103e76662fb470f6c33478433ef28d0126b3",
+    "regression_selected": "17a2f42c62f1f6e8fd99e47153f1319177447a1de63034f408a49197909c3af6",
+    "fresh_baseline": "cfaad6faab9c6bc29b51e9439b84198a9a3fdff4ca2c19010141c86246a66be2",
+    "fresh_selected": "314a4d8ec6536159b705bb6054e10de784886bffaf87eeb330b3bf5408f4c160"
+  },
+  "dataset_sha256": {
+    "evals/cases.iteration02-regression.jsonl": "fa3f5b4881d0a1acd5c3e3add89e54a0ef716bf21db53318c66adc0e5c6c5486",
+    "evals/cases.iteration02-fresh.jsonl": "af9f50bb3cd8f308e9120f54e90228089ca7af38c397e7c6b592fb63201554dc"
+  },
+  "display_vs_raw": "Selected development answers replay a lexical display guard over the same 25 preserved v3 raw responses. One answer changes; report the raw-model partial separately. Fresh selected answers were generated with this guard already active.",
+  "limitations": [
+    "Caption-only source support is not independent real-world fact or exact API spelling validation",
+    "Some frozen explanatory points still exceed the minimal main question, e.g. lc-course-03 purpose; retain both settings' partial judgments",
+    "One output per model setting/question; same-course fresh questions, AI-authored and nonblind AI-reviewed"
+  ],
+  "rows": [
+    {
+      "case_id": "lc-course-01",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S1/S2 loading, S2-S4 transformations, S4/S5 embedding and S6 persistence are covered. Exact ASR-derived attribute names were not screen-verified."
+    },
+    {
+      "case_id": "lc-course-01",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S1 loading, S2/S3 transformations, S4 embedding and S6 persistence cover the requested workflow. No extra PDF example; exact attribute spellings remain outside caption-only validation."
+    },
+    {
+      "case_id": "lc-course-02",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S2/S3 boundary break and overlap, S3/S4 recursive handling. Mitigation is qualified rather than an absolute guarantee."
+    },
+    {
+      "case_id": "lc-course-02",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "Boundary splitting, shared overlap and finer separators are covered by S2-S4. No claim that semantics can never be lost."
+    },
+    {
+      "case_id": "lc-course-03",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "missing"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "S1/S2 support correct recursive sequence and stopping. Does not explicitly cover the frozen third point's structure-preservation/embedding-retrieval purpose. Main question's algorithm is answered; removed customizable-separator clause is not counted."
+    },
+    {
+      "case_id": "lc-course-03",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "missing"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S1/S2 support the sequence and size stopping rule. Still does not explicitly state the third point's structure-preservation purpose. Keep partial under the frozen rubric; this does not mean the main sequence is wrong."
+    },
+    {
+      "case_id": "lc-course-04",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "Single input/vector in S11/S12, string list/vectors in S13/S14, CSV text preparation in S15/S16. Different dimensions are example-specific, not generalized."
+    },
+    {
+      "case_id": "lc-course-04",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S11-S16 support both input/output structures and CSV extraction. The answer explicitly leaves the exact text-bearing field for screen verification."
+    },
+    {
+      "case_id": "lc-course-05",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "All functional points are present, including insufficient-evidence handling in S11. However the answer promotes ambiguous ASR text/test/contest to the exact content key without establishing that code spelling; retain partial for an unsupported code detail."
+    },
+    {
+      "case_id": "lc-course-05",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "Formatting, prompt construction, Agent invocation and final reply retrieval are supported by S3-S7; insufficient-evidence behavior by S11. Ambiguous chunk-id wording is explicitly flagged instead of supplying a guessed numeric index."
+    },
+    {
+      "case_id": "lc-check-01",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S1 supports format-specific loaders, memory and Document result. Exact attribute spellings not independently verified."
+    },
+    {
+      "case_id": "lc-check-01",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S1 supports both necessary points; describes the two attributes by function rather than committing to uncertain field spelling."
+    },
+    {
+      "case_id": "lc-check-02",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S6 supports retaining vectors and avoiding per-use conversion."
+    },
+    {
+      "case_id": "lc-check-02",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S6 supports avoiding repeated conversion and storage. No invented cost measurements."
+    },
+    {
+      "case_id": "lc-check-03",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S3 describes shared overlap; S2/S3 support boundary break mitigation. The phrase guarantee is qualified by in-a-degree, not an absolute never-loss claim."
+    },
+    {
+      "case_id": "lc-check-03",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S3 overlap and S2/S3 boundary mitigation are covered; absent overlap parameter value is not guessed."
+    },
+    {
+      "case_id": "lc-check-04",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S4 model/vectorization overhead and slower speed; S5 unequal semantic unit sizes."
+    },
+    {
+      "case_id": "lc-check-04",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "All costs and unequal-unit-size reason covered by S4/S5."
+    },
+    {
+      "case_id": "lc-check-05",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S3/S10 support customizable separators; S3 includes comma, period, exclamation and ellipsis."
+    },
+    {
+      "case_id": "lc-check-05",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S3/S10 support customization; S3 supports all requested punctuation examples."
+    },
+    {
+      "case_id": "lc-check-06",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S13/S14 support string-list input and vector-list output; extra comparison with single-query is also supported."
+    },
+    {
+      "case_id": "lc-check-06",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "String-list to vector-list is supported by S13/S14 and CSV illustration by S15/S16."
+    },
+    {
+      "case_id": "lc-check-07",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "All necessary loading/embedding/persistence points are covered, but PDF is added as an S1/S2 format example absent from the complete fixed P103 captions. Do not count full success merely because necessary points are covered."
+    },
+    {
+      "case_id": "lc-check-07",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S1 loading, S4 embedding and S6 persistence. Previously unsupported PDF example is absent. Caption-only attribute spellings are not claimed as screen-verified."
+    },
+    {
+      "case_id": "lc-check-08",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S10-S12 single string/vector, S15 CSV preparation and S13-S16 vector list are supported. Code spellings remain ASR-dependent."
+    },
+    {
+      "case_id": "lc-check-08",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "Both chains and output structures are supported by S10-S16; exact method spellings are flagged for video-code verification."
+    },
+    {
+      "case_id": "lc-check-09",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "No accuracy/recall/sample-size values supplied or invented; scopes absence to provided snippets."
+    },
+    {
+      "case_id": "lc-check-09",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "Explicitly says the requested metrics/sample count are absent and invents none."
+    },
+    {
+      "case_id": "lc-check-10",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "No daily-active or conversion figures invented; evidence insufficiency stated."
+    },
+    {
+      "case_id": "lc-check-10",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "Refuses to invent operating figures. No bracketed citation is used, but the refusal contains no new positive external factual claim."
+    },
+    {
+      "case_id": "hy-long-01",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "fail",
+      "point_assessments": [
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "raw_model_verdict": "fail",
+      "output_guard": null,
+      "notes": "Top-3 lacks sampling, append-and-repeat-to-EOS and randomness. Honest abstention on an answerable question still fails the requested task."
+    },
+    {
+      "case_id": "hy-long-01",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S5/S6 sampling, S4/S8 append/repeat, S4 EOS and S8 randomness are restored. Extra top-k discussion has S73/S74 support."
+    },
+    {
+      "case_id": "hy-long-02",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "partial"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "S3 supports continuation rather than database lookup. Answer says it cannot confirm a guarantee, while supplied sources lack the lecture's explicit not-guaranteed warning. Positive search effect is no longer a separate mandatory item."
+    },
+    {
+      "case_id": "hy-long-02",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S20/S21 support hallucination/continuation; S22 contains the explicit search-not-guaranteed warning and the answer states it directly."
+    },
+    {
+      "case_id": "hy-long-03",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "All necessary concepts supported by S1-S3, but extra as special token=false is an unverified executable-looking spelling derived from phonetic captions."
+    },
+    {
+      "case_id": "hy-long-03",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": [
+          "as_special_token=false"
+        ]
+      },
+      "notes": "S54/S59 encode, S53/S54 decode and S60/S63/S64 starting symbol cover the three points. Raw model still emits as_special_token=false; shared display guard replaces it with a verification notice. Raw-model verdict remains partial."
+    },
+    {
+      "case_id": "hy-long-04",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "Leading-space distinction in S1 and removal result in S2 are correctly cited."
+    },
+    {
+      "case_id": "hy-long-04",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S61/S62 distinction and S62/S63 removal result are supported; numeric token IDs remain caption-derived, not independently screen-verified."
+    },
+    {
+      "case_id": "hy-long-05",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S1 excludes rare candidates and supports k=1; S3 supports top-three randomness. Describes the actual odd outputs too, not a general coherence guarantee."
+    },
+    {
+      "case_id": "hy-long-05",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S73/S74 candidate restriction and k=1; S75 top-three random choice and demonstration results. No new benchmark figures."
+    },
+    {
+      "case_id": "hy-long-06",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "partial",
+        "covered"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "S1/S3 contain all necessary evidence, but the answer omits the complex-manual-template/typing-error reason. This is generation omission, not only missing retrieval."
+    },
+    {
+      "case_id": "hy-long-06",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "partial",
+        "covered"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "All 102 snippets are supplied and S82 contains the typing-error reason, but answer again omits that part. Official-template behavior and encoding are covered by S81-S84. Retain this unresolved generation omission."
+    },
+    {
+      "case_id": "hy-long-07",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "partial",
+        "partial",
+        "missing"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "Roles and template/generate portions are supported, but encoding/extraction are incomplete. It additionally misreads the ASR rendering of Gemma as a decoding operation improving Chinese output."
+    },
+    {
+      "case_id": "hy-long-07",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S83/S84 roles, template and ID conversion; S84/S92 generation; S92/S93 decode and S93 actual answer extraction. The previous Gemma-as-decoding interpretation is absent."
+    },
+    {
+      "case_id": "hy-long-08",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "partial",
+        "unsupported"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "S2 supports the early mountain follow-up and history principle. All Top-3 snippets are early; claiming the later answer-update implementation from S2 is unsupported."
+    },
+    {
+      "case_id": "hy-long-08",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S19 supports mountain disambiguation, S89/S95/S96 role-tagged history, S97/S98 adding new outputs for the next turn. The memory explanation is interpreted in the demonstrated explicit-history scope, not as a general claim about all products."
+    },
+    {
+      "case_id": "hy-long-09",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "No Llama/Gemma accuracy or sample count invented; supplied-snippet limitation explicit."
+    },
+    {
+      "case_id": "hy-long-09",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "Distinguishes subjective model comparison from unavailable quantitative benchmark figures; invents no metrics."
+    },
+    {
+      "case_id": "hy-long-10",
+      "partition": "regression",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "States supplied evidence lacks monthly-active/conversion data and invents none."
+    },
+    {
+      "case_id": "hy-long-10",
+      "partition": "regression",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "No invented operating metrics. Refusal has no explicit source bracket but makes no new positive external claim."
+    },
+    {
+      "case_id": "hy-fresh-01",
+      "partition": "fresh",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S1/S2 define finite basic units and their combinations. Extra caveat about absent mathematical derivation does not negate the requested conceptual answer."
+    },
+    {
+      "case_id": "hy-fresh-01",
+      "partition": "fresh",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S33/S34 finite units and S36 combinations support both frozen points."
+    },
+    {
+      "case_id": "hy-fresh-02",
+      "partition": "fresh",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S1/S2 support the lecturer's parameter-access definition and distinction from complete training disclosure."
+    },
+    {
+      "case_id": "hy-fresh-02",
+      "partition": "fresh",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S40/S41 support the deliberately scoped course definition and training-process qualification."
+    },
+    {
+      "case_id": "hy-fresh-03",
+      "partition": "fresh",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S1/S2 support credential vs generated unit; source also contains the extra login illustration and S3 the gated-download discussion. No real credential is present."
+    },
+    {
+      "case_id": "hy-fresh-03",
+      "partition": "fresh",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S46/S47 credential meaning contrasted with generated units in S3/S30/S32. No token value is exposed or invented."
+    },
+    {
+      "case_id": "hy-fresh-04",
+      "partition": "fresh",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "S2 output includes input, S1/S2 stopping conditions, S1 decoding and S3 display extraction are supported."
+    },
+    {
+      "case_id": "hy-fresh-04",
+      "partition": "fresh",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S76 output structure and S76/S77 two stopping conditions; S77 decoding."
+    },
+    {
+      "case_id": "hy-fresh-05",
+      "partition": "fresh",
+      "setting": "baseline",
+      "verdict": "partial",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "partial",
+      "output_guard": null,
+      "notes": "Necessary identity/system-prompt explanation is present, but the final claim that snippets provide no other model-identity basis contradicts S1/S3 explicitly changing model ID. Preserve partial for this extra unsupported denial."
+    },
+    {
+      "case_id": "hy-fresh-05",
+      "partition": "fresh",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S100/S101 model-ID switch and S88/S89/S101 unchanged system identity are covered. Advises checking configured model identity rather than self-description with source support."
+    },
+    {
+      "case_id": "hy-fresh-06",
+      "partition": "fresh",
+      "setting": "baseline",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": null,
+      "notes": "No accuracy improvement or dataset size invented; does not mistake token probabilities in S1/S3 for benchmark results."
+    },
+    {
+      "case_id": "hy-fresh-06",
+      "partition": "fresh",
+      "setting": "selected",
+      "verdict": "pass",
+      "point_assessments": [
+        "covered",
+        "covered"
+      ],
+      "raw_model_verdict": "pass",
+      "output_guard": {
+        "policy": "source_code_v1",
+        "replaced_expressions": []
+      },
+      "notes": "S74/S75 qualitative sampling demonstration is distinguished from absent benchmark metrics; no numbers invented."
+    }
+  ]
+}

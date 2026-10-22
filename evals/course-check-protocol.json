@@ -1,0 +1,20 @@
+{
+  "frozen_at": "2026-10-21T08:20:03.039155+00:00",
+  "dataset": "evals/cases.course-check.jsonl",
+  "dataset_sha256": "4742c71b6a567e9ab97d41af6b714e0847788538e0de9f4814e243bab1551535",
+  "scope": "10 same-course diagnostic questions; overlapping development topics, no independent-course or long-caption claim",
+  "modes": [
+    "hybrid"
+  ],
+  "quality_review": "AI assessment against full captions and retrieved evidence; no human or audio review",
+  "answerable_pass": "All required points covered correctly AND critical claims supported by valid cited sources",
+  "unanswerable_pass": "Explicitly state missing evidence AND invent no requested figures",
+  "partial": "Some necessary points supported but one or more missing or not supported by citations",
+  "structural_checks": [
+    "Nonempty answer",
+    "Stop finish_reason",
+    "Existing source IDs for citations",
+    "Correct part and timestamp parameters"
+  ],
+  "causal_or_population_inference": false
+}
